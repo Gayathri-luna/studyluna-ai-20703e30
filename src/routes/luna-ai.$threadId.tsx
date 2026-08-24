@@ -792,11 +792,65 @@ function ChatWindow({
         </div>
       )}
 
+      {youtubeOpen && (
+        <div className="mt-3 rounded-xl border border-border bg-card p-4">
+          <p className="text-sm font-medium text-foreground">Learn from a YouTube video</p>
+          <p className="mt-1 text-xs text-muted-foreground">
+            Paste a video link and LunaAI will read its captions, then explain and summarise it.
+          </p>
+          <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+            <input
+              type="url"
+              value={youtubeUrl}
+              onChange={(event) => setYoutubeUrl(event.target.value)}
+              placeholder="https://www.youtube.com/watch?v=…"
+              className="flex-1 rounded-lg border border-border bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            />
+            <Button
+              type="button"
+              size="sm"
+              disabled={youtubeLoading || isLoading}
+              onClick={() => void submitYouTube(youtubeUrl)}
+            >
+              {youtubeLoading ? (
+                <Loader2 className="mr-1 h-4 w-4 animate-spin" />
+              ) : (
+                <Youtube className="mr-1 h-4 w-4" />
+              )}
+              {youtubeLoading ? "Reading captions…" : "Use video"}
+            </Button>
+          </div>
+          {youtubeNeedsPaste && (
+            <div className="mt-3">
+              <p className="text-xs text-muted-foreground">
+                Captions were not available. Open the video, copy its transcript, and paste it here.
+              </p>
+              <Textarea
+                value={youtubePaste}
+                onChange={(event) => setYoutubePaste(event.target.value)}
+                rows={4}
+                placeholder="Paste the transcript here…"
+                className="mt-2 resize-none"
+              />
+              <Button
+                type="button"
+                size="sm"
+                className="mt-2"
+                disabled={!youtubePaste.trim() || isLoading}
+                onClick={() => void submitYouTube(youtubeUrl, youtubePaste)}
+              >
+                Use pasted transcript
+              </Button>
+            </div>
+          )}
+        </div>
+      )}
+
       <form
         className="mt-3 flex items-end gap-2"
         onSubmit={(event) => {
           event.preventDefault();
-          void submit(input);
+          handleSend(input);
         }}
       >
         <input
@@ -873,6 +927,15 @@ function ChatWindow({
           <Button
             type="button"
             size="icon"
+            variant={youtubeOpen ? "default" : "outline"}
+            aria-label="Learn from a YouTube video"
+            onClick={() => setYoutubeOpen((open) => !open)}
+          >
+            <Youtube className="h-4 w-4" />
+          </Button>
+          <Button
+            type="button"
+            size="icon"
             variant="outline"
             aria-label="Attach file or document"
             onClick={() => fileInputRef.current?.click()}
@@ -888,10 +951,10 @@ function ChatWindow({
           onKeyDown={(event) => {
             if (event.key === "Enter" && !event.shiftKey) {
               event.preventDefault();
-              void submit(input);
+              handleSend(input);
             }
           }}
-          placeholder="Ask anything, or attach a photo, recording, podcast or document…"
+          placeholder="Ask anything, paste a YouTube link, or attach a photo, recording or document…"
           rows={2}
           className="resize-none"
         />
