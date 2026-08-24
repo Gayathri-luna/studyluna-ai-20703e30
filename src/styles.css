@@ -2,7 +2,7 @@
 @source "../src";
 @import "tw-animate-css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is(.dark *, .theme-circuit *));
 
 /*
  * Design system definition.
@@ -61,8 +61,9 @@
   --color-sidebar-ring: var(--sidebar-ring);
 }
 
+/* ---- Default light theme ---- */
 :root {
-  --radius: 0.625rem;
+  --radius: 0.75rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
   --card: oklch(1 0 0);
@@ -95,8 +96,12 @@
   --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
   --sidebar-border: oklch(0.929 0.013 255.508);
   --sidebar-ring: oklch(0.704 0.04 256.788);
+
+  --circuit-line: oklch(0.55 0.05 250 / 10%);
+  --glow-primary: 0 10px 30px -10px oklch(0.208 0.042 265.755 / 35%);
 }
 
+/* ---- Default dark theme ---- */
 .dark {
   --background: oklch(0.129 0.042 264.695);
   --foreground: oklch(0.984 0.003 247.858);
@@ -130,7 +135,50 @@
   --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.551 0.027 264.364);
+
+  --circuit-line: oklch(0.9 0.02 250 / 8%);
+  --glow-primary: 0 0 40px oklch(0.9 0.02 250 / 15%);
 }
+
+/* ---- Electronics / circuit-board theme ---- */
+.theme-circuit {
+  --background: oklch(0.16 0.035 250);
+  --foreground: oklch(0.96 0.01 220);
+  --card: oklch(0.21 0.04 252);
+  --card-foreground: oklch(0.96 0.01 220);
+  --popover: oklch(0.21 0.04 252);
+  --popover-foreground: oklch(0.96 0.01 220);
+  --primary: oklch(0.82 0.16 195);
+  --primary-foreground: oklch(0.17 0.04 250);
+  --secondary: oklch(0.26 0.045 253);
+  --secondary-foreground: oklch(0.94 0.015 200);
+  --muted: oklch(0.25 0.04 253);
+  --muted-foreground: oklch(0.74 0.03 210);
+  --accent: oklch(0.29 0.06 190);
+  --accent-foreground: oklch(0.95 0.02 195);
+  --destructive: oklch(0.65 0.21 25);
+  --destructive-foreground: oklch(0.98 0.005 250);
+  --border: oklch(0.34 0.05 220 / 60%);
+  --input: oklch(0.34 0.05 220 / 70%);
+  --ring: oklch(0.82 0.16 195);
+  --chart-1: oklch(0.82 0.16 195);
+  --chart-2: oklch(0.78 0.18 150);
+  --chart-3: oklch(0.75 0.17 90);
+  --chart-4: oklch(0.7 0.19 300);
+  --chart-5: oklch(0.72 0.2 30);
+  --sidebar: oklch(0.19 0.04 252);
+  --sidebar-foreground: oklch(0.96 0.01 220);
+  --sidebar-primary: oklch(0.82 0.16 195);
+  --sidebar-primary-foreground: oklch(0.17 0.04 250);
+  --sidebar-accent: oklch(0.26 0.045 253);
+  --sidebar-accent-foreground: oklch(0.95 0.015 200);
+  --sidebar-border: oklch(0.34 0.05 220 / 60%);
+  --sidebar-ring: oklch(0.82 0.16 195);
+
+  --circuit-line: oklch(0.82 0.16 195 / 12%);
+  --glow-primary: 0 0 40px oklch(0.82 0.16 195 / 25%);
+}
+
 
 @layer base {
   * {
@@ -140,5 +188,168 @@
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+  }
+}
+
+/* Circuit-board grid background */
+@utility circuit-grid {
+  background-image:
+    linear-gradient(var(--circuit-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--circuit-line) 1px, transparent 1px);
+  background-size: 44px 44px;
+}
+
+@utility glow-primary {
+  box-shadow: var(--glow-primary);
+}
+
+@utility text-gradient-circuit {
+  background-image: linear-gradient(
+    100deg,
+    var(--chart-1),
+    var(--chart-2)
+  );
+  background-clip: text;
+  color: transparent;
+}
+
+
+
+/* ---- Subtle motion system ---- */
+@keyframes luna-rise {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes luna-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@utility animate-rise {
+  animation: luna-rise 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@utility animate-page {
+  animation: luna-fade 0.28s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ---- Luna global animation language ---- */
+@keyframes luna-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes luna-drift {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(3%, -4%, 0) scale(1.12); }
+  100% { transform: translate3d(0, 0, 0) scale(1); }
+}
+
+@keyframes luna-pan {
+  from { background-position: 0% 50%; }
+  to { background-position: 200% 50%; }
+}
+
+@keyframes luna-scan {
+  from { transform: translateY(-100%); }
+  to { transform: translateY(100%); }
+}
+
+@keyframes luna-pulse-ring {
+  0% { box-shadow: 0 0 0 0 color-mix(in oklab, var(--color-primary) 35%, transparent); }
+  70% { box-shadow: 0 0 0 14px transparent; }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+@utility animate-float {
+  animation: luna-float 6s ease-in-out infinite;
+}
+
+@utility animate-drift {
+  animation: luna-drift 18s ease-in-out infinite;
+}
+
+@utility animate-pulse-ring {
+  animation: luna-pulse-ring 2.6s ease-out infinite;
+}
+
+/* Animated gradient headline text */
+@utility text-gradient-animated {
+  background-image: linear-gradient(
+    100deg,
+    var(--chart-1),
+    var(--chart-2),
+    var(--chart-1)
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  color: transparent;
+  animation: luna-pan 6s linear infinite;
+}
+
+/* Moving circuit scan line overlay */
+@utility circuit-scan {
+  position: relative;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      transparent,
+      color-mix(in oklab, var(--color-primary) 12%, transparent),
+      transparent
+    );
+    animation: luna-scan 7s linear infinite;
+    pointer-events: none;
+  }
+}
+
+/* Reusable interactive card surface */
+@utility luna-card {
+  border-radius: 1rem;
+  border: 1px solid color-mix(in oklab, var(--color-border) 70%, transparent);
+  background: color-mix(in oklab, var(--color-card) 50%, transparent);
+  backdrop-filter: blur(16px);
+  transition:
+    transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.25s ease,
+    box-shadow 0.25s ease;
+  &:hover {
+    transform: translateY(-4px);
+    border-color: color-mix(in oklab, var(--color-primary) 55%, transparent);
+    box-shadow: var(--glow-primary);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-drift,
+  .animate-pulse-ring,
+  .text-gradient-animated {
+    animation: none !important;
   }
 }
