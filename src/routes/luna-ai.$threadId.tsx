@@ -403,14 +403,14 @@ function ChatWindow({
   };
 
   /** Sends a YouTube video to LunaAI, using its captions when available. */
-  const submitYouTube = async (rawUrl: string, pasted?: string) => {
+  const submitYouTube = async (rawUrl: string, pasted?: string, questionOverride?: string) => {
     const videoId = extractVideoId(rawUrl);
     if (!videoId) {
       toast.error("Paste a valid YouTube link (youtube.com/watch?v=… or youtu.be/…).");
       return;
     }
     const link = watchUrl(videoId);
-    const question = input.trim();
+    const question = (questionOverride ?? input).trim();
 
     if (pasted?.trim()) {
       setYoutubeOpen(false);
@@ -470,8 +470,9 @@ function ChatWindow({
   const handleSend = (text: string) => {
     const link = attachments.length === 0 ? findYouTubeLink(text) : null;
     if (link) {
-      setInput(text.replace(link, "").trim());
-      void submitYouTube(link);
+      const question = text.replace(link, "").trim();
+      setInput("");
+      void submitYouTube(link, undefined, question);
       return;
     }
     void submit(text);
