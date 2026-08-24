@@ -2,7 +2,6 @@ import { createFileRoute, Link, Outlet, useNavigate, useParams } from "@tanstack
 import { useCallback, useEffect, useState } from "react";
 import { MessageSquare, Plus, Trash2, Rocket } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { RequireAuth } from "@/components/RequireAuth";
 import { LunaModelSelector } from "@/components/LunaModelSelector";
 import { LUNA_CAPABILITIES, getLunaModel, useLunaModel } from "@/lib/luna-models";
 import {
@@ -67,11 +66,6 @@ function LunaLayout() {
   };
 
   return (
-    <RequireAuth
-      redirectTo="/luna-ai"
-      title="Sign in to use LunaAI"
-      message="LunaAI conversations are tied to your account, so please log in or create a free account to continue."
-    >
     <div className="container mx-auto max-w-7xl px-4 py-8">
       <header className="mb-6">
         <div className="flex flex-wrap items-center gap-3">
@@ -138,6 +132,5 @@ function LunaLayout() {
         <Outlet />
       </div>
     </div>
-    </RequireAuth>
   );
 }
