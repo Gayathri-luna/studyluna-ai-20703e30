@@ -292,6 +292,7 @@ function ChatWindow({
     onError: (error) => {
       sendingRef.current = false;
       const message = friendlyError(error);
+      if (/free trial is over|please log in/i.test(message)) setTrialModalOpen(true);
       setErrorText(message);
       toast.error(message);
     },
