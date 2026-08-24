@@ -29,6 +29,7 @@ import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as ApiGenerateAudioRouteImport } from './routes/api/generate-audio'
 import { Route as ApiGenerateImageRouteImport } from './routes/api/generate-image'
+import { Route as ApiYoutubeTranscriptRouteImport } from './routes/api/youtube-transcript'
 import { Route as GovernmentJobsIndexRouteImport } from './routes/government-jobs.index'
 import { Route as GovernmentJobsSlugRouteImport } from './routes/government-jobs.$slug'
 import { Route as InterestsIndexRouteImport } from './routes/interests.index'
@@ -142,6 +143,11 @@ const ApiGenerateImageRoute = ApiGenerateImageRouteImport.update({
   path: '/api/generate-image',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiYoutubeTranscriptRoute = ApiYoutubeTranscriptRouteImport.update({
+  id: '/api/youtube-transcript',
+  path: '/api/youtube-transcript',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const GovernmentJobsIndexRoute = GovernmentJobsIndexRouteImport.update({
   id: '/government-jobs/',
   path: '/government-jobs/',
@@ -224,6 +230,7 @@ export interface FileRoutesByFullPath {
   '/api/chat': typeof ApiChatRoute
   '/api/generate-audio': typeof ApiGenerateAudioRoute
   '/api/generate-image': typeof ApiGenerateImageRoute
+  '/api/youtube-transcript': typeof ApiYoutubeTranscriptRoute
   '/government-jobs/$slug': typeof GovernmentJobsSlugRoute
   '/interests/$slug': typeof InterestsSlugRoute
   '/luna-ai/$threadId': typeof LunaAiThreadIdRoute
@@ -257,6 +264,7 @@ export interface FileRoutesByTo {
   '/api/chat': typeof ApiChatRoute
   '/api/generate-audio': typeof ApiGenerateAudioRoute
   '/api/generate-image': typeof ApiGenerateImageRoute
+  '/api/youtube-transcript': typeof ApiYoutubeTranscriptRoute
   '/government-jobs/$slug': typeof GovernmentJobsSlugRoute
   '/interests/$slug': typeof InterestsSlugRoute
   '/luna-ai/$threadId': typeof LunaAiThreadIdRoute
@@ -292,6 +300,7 @@ export interface FileRoutesById {
   '/api/chat': typeof ApiChatRoute
   '/api/generate-audio': typeof ApiGenerateAudioRoute
   '/api/generate-image': typeof ApiGenerateImageRoute
+  '/api/youtube-transcript': typeof ApiYoutubeTranscriptRoute
   '/government-jobs/$slug': typeof GovernmentJobsSlugRoute
   '/interests/$slug': typeof InterestsSlugRoute
   '/luna-ai/$threadId': typeof LunaAiThreadIdRoute
@@ -328,6 +337,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/api/generate-audio'
     | '/api/generate-image'
+    | '/api/youtube-transcript'
     | '/government-jobs/$slug'
     | '/interests/$slug'
     | '/luna-ai/$threadId'
@@ -361,6 +371,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/api/generate-audio'
     | '/api/generate-image'
+    | '/api/youtube-transcript'
     | '/government-jobs/$slug'
     | '/interests/$slug'
     | '/luna-ai/$threadId'
@@ -395,6 +406,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/api/generate-audio'
     | '/api/generate-image'
+    | '/api/youtube-transcript'
     | '/government-jobs/$slug'
     | '/interests/$slug'
     | '/luna-ai/$threadId'
@@ -430,6 +442,7 @@ export interface RootRouteChildren {
   ApiChatRoute: typeof ApiChatRoute
   ApiGenerateAudioRoute: typeof ApiGenerateAudioRoute
   ApiGenerateImageRoute: typeof ApiGenerateImageRoute
+  ApiYoutubeTranscriptRoute: typeof ApiYoutubeTranscriptRoute
   GovernmentJobsSlugRoute: typeof GovernmentJobsSlugRoute
   InterestsSlugRoute: typeof InterestsSlugRoute
   ResourcesSlugRoute: typeof ResourcesSlugRoute
@@ -584,6 +597,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiGenerateImageRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/youtube-transcript': {
+      id: '/api/youtube-transcript'
+      path: '/api/youtube-transcript'
+      fullPath: '/api/youtube-transcript'
+      preLoaderRoute: typeof ApiYoutubeTranscriptRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/government-jobs/': {
       id: '/government-jobs/'
       path: '/government-jobs'
@@ -705,6 +725,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiChatRoute: ApiChatRoute,
   ApiGenerateAudioRoute: ApiGenerateAudioRoute,
   ApiGenerateImageRoute: ApiGenerateImageRoute,
+  ApiYoutubeTranscriptRoute: ApiYoutubeTranscriptRoute,
   GovernmentJobsSlugRoute: GovernmentJobsSlugRoute,
   InterestsSlugRoute: InterestsSlugRoute,
   ResourcesSlugRoute: ResourcesSlugRoute,
