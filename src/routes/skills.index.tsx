@@ -31,14 +31,26 @@ const CATEGORIES: { key: SkillCategory; label: string; blurb: string }[] = [
   { key: "soft", label: "Soft Skills", blurb: "Communication, teamwork and career skills for every branch." },
 ];
 
-function SkillGrid({ items }: { items: Skill[] }) {
+function useDebounced(value: string, delay = 180) {
+  const [debounced, setDebounced] = useState(value);
+  useEffect(() => {
+    const id = setTimeout(() => setDebounced(value), delay);
+    return () => clearTimeout(id);
+  }, [value, delay]);
+  return debounced;
+}
+
+function SkillGrid({ items, query }: { items: Skill[]; query: string }) {
   if (items.length === 0) {
     return (
       <p className="mt-6 rounded-xl border border-border/70 bg-card/50 p-6 text-sm text-muted-foreground">
-        No skills listed for this combination yet — try another field or category.
+        {query
+          ? `No results found for "${query}".`
+          : "No skills listed for this combination yet — try another field or category."}
       </p>
     );
   }
+
 
   return (
     <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
