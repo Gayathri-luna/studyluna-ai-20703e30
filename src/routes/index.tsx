@@ -9,6 +9,7 @@ import {
   Users,
   Sparkles,
   ArrowRight,
+  GraduationCap,
 } from "lucide-react";
 import lunaLogo from "@/assets/luna-logo.png";
 import { AnimatedButton, HoverLift, LunaGlow, Particles, Reveal, Stagger } from "@/components/motion";
@@ -64,6 +65,12 @@ const FEATURES = [
     icon: Landmark,
     title: "Government Jobs",
     text: "ISRO, DRDO, GATE, PSUs — eligibility to salary.",
+  },
+  {
+    to: "/exams",
+    icon: GraduationCap,
+    title: "Exams & Preparation",
+    text: "CAT, XAT, GATE, GRE, GMAT, IELTS — purpose, dates and official links.",
   },
   {
     to: "/resources",

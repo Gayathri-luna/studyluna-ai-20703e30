@@ -16,6 +16,7 @@ import { Route as CareerHubRouteImport } from './routes/career-hub'
 import { Route as CommunityRouteImport } from './routes/community'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as ExamsRouteImport } from './routes/exams'
 import { Route as HubRouteImport } from './routes/hub'
 import { Route as IndustryNewsRouteImport } from './routes/industry-news'
 import { Route as LearningHubRouteImport } from './routes/learning-hub'
@@ -76,6 +77,11 @@ const ContactRoute = ContactRouteImport.update({
 const DashboardRoute = DashboardRouteImport.update({
   id: '/dashboard',
   path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExamsRoute = ExamsRouteImport.update({
+  id: '/exams',
+  path: '/exams',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HubRoute = HubRouteImport.update({
@@ -217,6 +223,7 @@ export interface FileRoutesByFullPath {
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
+  '/exams': typeof ExamsRoute
   '/hub': typeof HubRoute
   '/industry-news': typeof IndustryNewsRoute
   '/learning-hub': typeof LearningHubRoute
@@ -252,6 +259,7 @@ export interface FileRoutesByTo {
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
+  '/exams': typeof ExamsRoute
   '/hub': typeof HubRoute
   '/industry-news': typeof IndustryNewsRoute
   '/learning-hub': typeof LearningHubRoute
@@ -287,6 +295,7 @@ export interface FileRoutesById {
   '/community': typeof CommunityRoute
   '/contact': typeof ContactRoute
   '/dashboard': typeof DashboardRoute
+  '/exams': typeof ExamsRoute
   '/hub': typeof HubRoute
   '/industry-news': typeof IndustryNewsRoute
   '/learning-hub': typeof LearningHubRoute
@@ -324,6 +333,7 @@ export interface FileRouteTypes {
     | '/community'
     | '/contact'
     | '/dashboard'
+    | '/exams'
     | '/hub'
     | '/industry-news'
     | '/learning-hub'
@@ -359,6 +369,7 @@ export interface FileRouteTypes {
     | '/community'
     | '/contact'
     | '/dashboard'
+    | '/exams'
     | '/hub'
     | '/industry-news'
     | '/learning-hub'
@@ -393,6 +404,7 @@ export interface FileRouteTypes {
     | '/community'
     | '/contact'
     | '/dashboard'
+    | '/exams'
     | '/hub'
     | '/industry-news'
     | '/learning-hub'
@@ -429,6 +441,7 @@ export interface RootRouteChildren {
   CommunityRoute: typeof CommunityRoute
   ContactRoute: typeof ContactRoute
   DashboardRoute: typeof DashboardRoute
+  ExamsRoute: typeof ExamsRoute
   HubRoute: typeof HubRoute
   IndustryNewsRoute: typeof IndustryNewsRoute
   LearningHubRoute: typeof LearningHubRoute
@@ -504,6 +517,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/exams': {
+      id: '/exams'
+      path: '/exams'
+      fullPath: '/exams'
+      preLoaderRoute: typeof ExamsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/hub': {
@@ -712,6 +732,7 @@ const rootRouteChildren: RootRouteChildren = {
   CommunityRoute: CommunityRoute,
   ContactRoute: ContactRoute,
   DashboardRoute: DashboardRoute,
+  ExamsRoute: ExamsRoute,
   HubRoute: HubRoute,
   IndustryNewsRoute: IndustryNewsRoute,
   LearningHubRoute: LearningHubRoute,
