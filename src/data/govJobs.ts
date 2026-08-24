@@ -9,6 +9,8 @@ export interface GovJob {
   eligibility: string[];
   skills: string[];
   salary: string;
+  /** Optional last date to apply — placeholder "Check official website" when unknown. */
+  lastDate?: string;
   examPattern: string[];
   roadmap: string[];
   resources: { label: string; href: string }[];
