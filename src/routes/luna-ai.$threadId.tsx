@@ -26,6 +26,9 @@ import { toast } from "sonner";
 import { readLunaModel } from "@/lib/luna-models";
 import { extractVideoId, findYouTubeLink, watchUrl } from "@/lib/youtube";
 import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/lib/auth";
+import { useGuestTrial } from "@/lib/guest-trial";
+import { GuestTrialBadge, GuestTrialModal } from "@/components/GuestTrialGate";
 import {
   LEARN_MODES,
   PODCAST_OUTPUTS,
@@ -205,6 +208,23 @@ function ChatWindow({
 
   const [errorText, setErrorText] = useState<string | null>(null);
   const sendingRef = useRef(false);
+
+  // Guests get a free trial; signed-in students are unrestricted.
+  const { user, loading: authLoading } = useAuth();
+  const isGuest = !authLoading && !user;
+  const trial = useGuestTrial(isGuest);
+  const [trialModalOpen, setTrialModalOpen] = useState(false);
+
+  /** Returns false (and prompts login) when the guest trial is exhausted. */
+  const allowGuestMessage = () => {
+    if (!isGuest) return true;
+    if (trial.expired) {
+      setTrialModalOpen(true);
+      return false;
+    }
+    trial.consume();
+    return true;
+  };
   const [media, setMedia] = useState<MediaItem[]>([]);
 
   const patchMedia = (id: string, patch: Partial<MediaItem>) =>
@@ -272,6 +292,7 @@ function ChatWindow({
     onError: (error) => {
       sendingRef.current = false;
       const message = friendlyError(error);
+      if (/free trial is over|please log in/i.test(message)) setTrialModalOpen(true);
       setErrorText(message);
       toast.error(message);
     },
@@ -363,6 +384,7 @@ function ChatWindow({
     if (!trimmed && attachments.length === 0) return;
     // Guards rapid double clicks / Enter presses before React flushes status.
     if (isLoading || sendingRef.current) return;
+    if (!allowGuestMessage()) return;
     sendingRef.current = true;
     setErrorText(null);
 
@@ -503,6 +525,7 @@ function ChatWindow({
 
   const regenerate = () => {
     if (!lastPrompt || isLoading || sendingRef.current) return;
+    if (!allowGuestMessage()) return;
     sendingRef.current = true;
     setErrorText(null);
     void sendMessage({ text: lastPrompt });
@@ -845,6 +868,19 @@ function ChatWindow({
           )}
         </div>
       )}
+
+      {isGuest && (
+        <GuestTrialBadge
+          left={trial.expired ? 0 : trial.left}
+          minutesLeft={trial.minutesLeft}
+        />
+      )}
+
+      <GuestTrialModal
+        open={trialModalOpen}
+        onOpenChange={setTrialModalOpen}
+        reason={trial.timedOut ? "time" : "messages"}
+      />
 
       <form
         className="mt-3 flex items-end gap-2"

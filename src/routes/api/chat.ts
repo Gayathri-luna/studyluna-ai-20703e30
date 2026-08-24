@@ -1,5 +1,5 @@
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway.server";
-import { consumeAiQuota, verifyRequestUser } from "@/lib/ai-limit.server";
+import { checkGuestRateLimit, consumeAiQuota, verifyRequestUser } from "@/lib/ai-limit.server";
 import { describeAiFailure, sanitizeMessages } from "@/lib/luna-chat.server";
 import { createFileRoute } from "@tanstack/react-router";
 import { convertToModelMessages, streamText, type UIMessage } from "ai";
@@ -67,8 +67,10 @@ export const Route = createFileRoute("/api/chat")({
   server: {
     handlers: {
       POST: async ({ request }) => {
-        const verified = await verifyRequestUser(request);
-        if ("error" in verified) return verified.error;
+        // Guests get a small free trial; signed-in students get the full daily quota.
+        const isGuest = !request.headers.get("authorization");
+        const verified = isGuest ? null : await verifyRequestUser(request);
+        if (verified && "error" in verified) return verified.error;
 
         const key = process.env["LOVABLE_API_KEY"];
         if (!key) {
@@ -104,7 +106,9 @@ export const Route = createFileRoute("/api/chat")({
           );
         }
 
-        const limited = await consumeAiQuota(verified.userId);
+        const limited = verified
+          ? await consumeAiQuota(verified.userId)
+          : checkGuestRateLimit(request);
         if (limited) return limited;
 
         const modePrompt =

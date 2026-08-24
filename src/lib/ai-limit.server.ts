@@ -79,3 +79,27 @@ export async function consumeAiQuota(userId: string): Promise<Response | null> {
   }
   return null;
 }
+
+/** Guests may try LunaAI without an account: 10 messages per 10 minutes per IP. */
+export const GUEST_MESSAGE_LIMIT = 10;
+export const GUEST_WINDOW_MS = 10 * 60_000;
+const guestHits = new Map<string, number[]>();
+
+export function checkGuestRateLimit(request: Request): Response | null {
+  const ip =
+    request.headers.get("cf-connecting-ip") ??
+    request.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ??
+    "unknown";
+  const now = Date.now();
+  const recent = (guestHits.get(ip) ?? []).filter((t) => now - t < GUEST_WINDOW_MS);
+  if (recent.length >= GUEST_MESSAGE_LIMIT) {
+    guestHits.set(ip, recent);
+    return new Response(
+      "Your free trial is over. Please sign in or create a free account to keep chatting with LunaAI.",
+      { status: 401 },
+    );
+  }
+  recent.push(now);
+  guestHits.set(ip, recent);
+  return null;
+}
