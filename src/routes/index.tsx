@@ -71,6 +71,12 @@ const FEATURES = [
     text: "Books, notes, courses and channels worth your time.",
   },
   {
+    to: "/interests",
+    icon: Sparkles,
+    title: "Interests & Hobbies",
+    text: "Explore hobbies with basics, free resources and progress tracking.",
+  },
+  {
     to: "/community",
     icon: Users,
     title: "Community",
