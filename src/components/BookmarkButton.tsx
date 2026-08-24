@@ -1,7 +1,6 @@
 import { Bookmark, BookmarkCheck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useBookmarks, type BookmarkInput } from "@/lib/bookmarks";
-import { loginHref } from "@/components/RequireAuth";
 import { Link } from "@tanstack/react-router";
 
 export function BookmarkButton({
