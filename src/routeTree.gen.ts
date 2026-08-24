@@ -10,33 +10,449 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as CareerHubRouteImport } from './routes/career-hub'
+import { Route as CommunityRouteImport } from './routes/community'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as HubRouteImport } from './routes/hub'
+import { Route as IndustryNewsRouteImport } from './routes/industry-news'
+import { Route as LearningHubRouteImport } from './routes/learning-hub'
+import { Route as LunaAiRouteImport } from './routes/luna-ai'
+import { Route as MyPlanRouteImport } from './routes/my-plan'
+import { Route as PlatformRouteImport } from './routes/platform'
+import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
+import { Route as ApiChatRouteImport } from './routes/api/chat'
+import { Route as ApiGenerateAudioRouteImport } from './routes/api/generate-audio'
+import { Route as ApiGenerateImageRouteImport } from './routes/api/generate-image'
+import { Route as ApiYoutubeTranscriptRouteImport } from './routes/api/youtube-transcript'
+import { Route as GovernmentJobsIndexRouteImport } from './routes/government-jobs.index'
+import { Route as GovernmentJobsSlugRouteImport } from './routes/government-jobs.$slug'
+import { Route as InterestsIndexRouteImport } from './routes/interests.index'
+import { Route as InterestsSlugRouteImport } from './routes/interests.$slug'
+import { Route as LunaAiIndexRouteImport } from './routes/luna-ai.index'
+import { Route as LunaAiThreadIdRouteImport } from './routes/luna-ai.$threadId'
+import { Route as ResourcesIndexRouteImport } from './routes/resources.index'
+import { Route as ResourcesSlugRouteImport } from './routes/resources.$slug'
+import { Route as RoadmapsIndexRouteImport } from './routes/roadmaps.index'
+import { Route as RoadmapsBranchRouteImport } from './routes/roadmaps.$branch'
+import { Route as SkillsIndexRouteImport } from './routes/skills.index'
+import { Route as SkillsSlugRouteImport } from './routes/skills.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CareerHubRoute = CareerHubRouteImport.update({
+  id: '/career-hub',
+  path: '/career-hub',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CommunityRoute = CommunityRouteImport.update({
+  id: '/community',
+  path: '/community',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HubRoute = HubRouteImport.update({
+  id: '/hub',
+  path: '/hub',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndustryNewsRoute = IndustryNewsRouteImport.update({
+  id: '/industry-news',
+  path: '/industry-news',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LearningHubRoute = LearningHubRouteImport.update({
+  id: '/learning-hub',
+  path: '/learning-hub',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LunaAiRoute = LunaAiRouteImport.update({
+  id: '/luna-ai',
+  path: '/luna-ai',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyPlanRoute = MyPlanRouteImport.update({
+  id: '/my-plan',
+  path: '/my-plan',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlatformRoute = PlatformRouteImport.update({
+  id: '/platform',
+  path: '/platform',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
+  id: '/privacy-policy',
+  path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsRoute = ProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
+  id: '/terms-of-service',
+  path: '/terms-of-service',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiChatRoute = ApiChatRouteImport.update({
+  id: '/api/chat',
+  path: '/api/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGenerateAudioRoute = ApiGenerateAudioRouteImport.update({
+  id: '/api/generate-audio',
+  path: '/api/generate-audio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiGenerateImageRoute = ApiGenerateImageRouteImport.update({
+  id: '/api/generate-image',
+  path: '/api/generate-image',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiYoutubeTranscriptRoute = ApiYoutubeTranscriptRouteImport.update({
+  id: '/api/youtube-transcript',
+  path: '/api/youtube-transcript',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GovernmentJobsIndexRoute = GovernmentJobsIndexRouteImport.update({
+  id: '/government-jobs/',
+  path: '/government-jobs/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const GovernmentJobsSlugRoute = GovernmentJobsSlugRouteImport.update({
+  id: '/government-jobs/$slug',
+  path: '/government-jobs/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InterestsIndexRoute = InterestsIndexRouteImport.update({
+  id: '/interests/',
+  path: '/interests/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InterestsSlugRoute = InterestsSlugRouteImport.update({
+  id: '/interests/$slug',
+  path: '/interests/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LunaAiIndexRoute = LunaAiIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LunaAiRoute,
+} as any)
+const LunaAiThreadIdRoute = LunaAiThreadIdRouteImport.update({
+  id: '/$threadId',
+  path: '/$threadId',
+  getParentRoute: () => LunaAiRoute,
+} as any)
+const ResourcesIndexRoute = ResourcesIndexRouteImport.update({
+  id: '/resources/',
+  path: '/resources/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesSlugRoute = ResourcesSlugRouteImport.update({
+  id: '/resources/$slug',
+  path: '/resources/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RoadmapsIndexRoute = RoadmapsIndexRouteImport.update({
+  id: '/roadmaps/',
+  path: '/roadmaps/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RoadmapsBranchRoute = RoadmapsBranchRouteImport.update({
+  id: '/roadmaps/$branch',
+  path: '/roadmaps/$branch',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SkillsIndexRoute = SkillsIndexRouteImport.update({
+  id: '/skills/',
+  path: '/skills/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SkillsSlugRoute = SkillsSlugRouteImport.update({
+  id: '/skills/$slug',
+  path: '/skills/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
+  '/career-hub': typeof CareerHubRoute
+  '/community': typeof CommunityRoute
+  '/contact': typeof ContactRoute
+  '/dashboard': typeof DashboardRoute
+  '/hub': typeof HubRoute
+  '/industry-news': typeof IndustryNewsRoute
+  '/learning-hub': typeof LearningHubRoute
+  '/luna-ai': typeof LunaAiRouteWithChildren
+  '/my-plan': typeof MyPlanRoute
+  '/platform': typeof PlatformRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/projects': typeof ProjectsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
+  '/api/chat': typeof ApiChatRoute
+  '/api/generate-audio': typeof ApiGenerateAudioRoute
+  '/api/generate-image': typeof ApiGenerateImageRoute
+  '/api/youtube-transcript': typeof ApiYoutubeTranscriptRoute
+  '/government-jobs/$slug': typeof GovernmentJobsSlugRoute
+  '/interests/$slug': typeof InterestsSlugRoute
+  '/luna-ai/$threadId': typeof LunaAiThreadIdRoute
+  '/resources/$slug': typeof ResourcesSlugRoute
+  '/roadmaps/$branch': typeof RoadmapsBranchRoute
+  '/skills/$slug': typeof SkillsSlugRoute
+  '/government-jobs/': typeof GovernmentJobsIndexRoute
+  '/interests/': typeof InterestsIndexRoute
+  '/luna-ai/': typeof LunaAiIndexRoute
+  '/resources/': typeof ResourcesIndexRoute
+  '/roadmaps/': typeof RoadmapsIndexRoute
+  '/skills/': typeof SkillsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
+  '/career-hub': typeof CareerHubRoute
+  '/community': typeof CommunityRoute
+  '/contact': typeof ContactRoute
+  '/dashboard': typeof DashboardRoute
+  '/hub': typeof HubRoute
+  '/industry-news': typeof IndustryNewsRoute
+  '/learning-hub': typeof LearningHubRoute
+  '/my-plan': typeof MyPlanRoute
+  '/platform': typeof PlatformRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/projects': typeof ProjectsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
+  '/api/chat': typeof ApiChatRoute
+  '/api/generate-audio': typeof ApiGenerateAudioRoute
+  '/api/generate-image': typeof ApiGenerateImageRoute
+  '/api/youtube-transcript': typeof ApiYoutubeTranscriptRoute
+  '/government-jobs/$slug': typeof GovernmentJobsSlugRoute
+  '/interests/$slug': typeof InterestsSlugRoute
+  '/luna-ai/$threadId': typeof LunaAiThreadIdRoute
+  '/resources/$slug': typeof ResourcesSlugRoute
+  '/roadmaps/$branch': typeof RoadmapsBranchRoute
+  '/skills/$slug': typeof SkillsSlugRoute
+  '/government-jobs': typeof GovernmentJobsIndexRoute
+  '/interests': typeof InterestsIndexRoute
+  '/luna-ai': typeof LunaAiIndexRoute
+  '/resources': typeof ResourcesIndexRoute
+  '/roadmaps': typeof RoadmapsIndexRoute
+  '/skills': typeof SkillsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
+  '/career-hub': typeof CareerHubRoute
+  '/community': typeof CommunityRoute
+  '/contact': typeof ContactRoute
+  '/dashboard': typeof DashboardRoute
+  '/hub': typeof HubRoute
+  '/industry-news': typeof IndustryNewsRoute
+  '/learning-hub': typeof LearningHubRoute
+  '/luna-ai': typeof LunaAiRouteWithChildren
+  '/my-plan': typeof MyPlanRoute
+  '/platform': typeof PlatformRoute
+  '/privacy-policy': typeof PrivacyPolicyRoute
+  '/projects': typeof ProjectsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/terms-of-service': typeof TermsOfServiceRoute
+  '/api/chat': typeof ApiChatRoute
+  '/api/generate-audio': typeof ApiGenerateAudioRoute
+  '/api/generate-image': typeof ApiGenerateImageRoute
+  '/api/youtube-transcript': typeof ApiYoutubeTranscriptRoute
+  '/government-jobs/$slug': typeof GovernmentJobsSlugRoute
+  '/interests/$slug': typeof InterestsSlugRoute
+  '/luna-ai/$threadId': typeof LunaAiThreadIdRoute
+  '/resources/$slug': typeof ResourcesSlugRoute
+  '/roadmaps/$branch': typeof RoadmapsBranchRoute
+  '/skills/$slug': typeof SkillsSlugRoute
+  '/government-jobs/': typeof GovernmentJobsIndexRoute
+  '/interests/': typeof InterestsIndexRoute
+  '/luna-ai/': typeof LunaAiIndexRoute
+  '/resources/': typeof ResourcesIndexRoute
+  '/roadmaps/': typeof RoadmapsIndexRoute
+  '/skills/': typeof SkillsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/auth'
+    | '/career-hub'
+    | '/community'
+    | '/contact'
+    | '/dashboard'
+    | '/hub'
+    | '/industry-news'
+    | '/learning-hub'
+    | '/luna-ai'
+    | '/my-plan'
+    | '/platform'
+    | '/privacy-policy'
+    | '/projects'
+    | '/sitemap.xml'
+    | '/terms-of-service'
+    | '/api/chat'
+    | '/api/generate-audio'
+    | '/api/generate-image'
+    | '/api/youtube-transcript'
+    | '/government-jobs/$slug'
+    | '/interests/$slug'
+    | '/luna-ai/$threadId'
+    | '/resources/$slug'
+    | '/roadmaps/$branch'
+    | '/skills/$slug'
+    | '/government-jobs/'
+    | '/interests/'
+    | '/luna-ai/'
+    | '/resources/'
+    | '/roadmaps/'
+    | '/skills/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/about'
+    | '/auth'
+    | '/career-hub'
+    | '/community'
+    | '/contact'
+    | '/dashboard'
+    | '/hub'
+    | '/industry-news'
+    | '/learning-hub'
+    | '/my-plan'
+    | '/platform'
+    | '/privacy-policy'
+    | '/projects'
+    | '/sitemap.xml'
+    | '/terms-of-service'
+    | '/api/chat'
+    | '/api/generate-audio'
+    | '/api/generate-image'
+    | '/api/youtube-transcript'
+    | '/government-jobs/$slug'
+    | '/interests/$slug'
+    | '/luna-ai/$threadId'
+    | '/resources/$slug'
+    | '/roadmaps/$branch'
+    | '/skills/$slug'
+    | '/government-jobs'
+    | '/interests'
+    | '/luna-ai'
+    | '/resources'
+    | '/roadmaps'
+    | '/skills'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/auth'
+    | '/career-hub'
+    | '/community'
+    | '/contact'
+    | '/dashboard'
+    | '/hub'
+    | '/industry-news'
+    | '/learning-hub'
+    | '/luna-ai'
+    | '/my-plan'
+    | '/platform'
+    | '/privacy-policy'
+    | '/projects'
+    | '/sitemap.xml'
+    | '/terms-of-service'
+    | '/api/chat'
+    | '/api/generate-audio'
+    | '/api/generate-image'
+    | '/api/youtube-transcript'
+    | '/government-jobs/$slug'
+    | '/interests/$slug'
+    | '/luna-ai/$threadId'
+    | '/resources/$slug'
+    | '/roadmaps/$branch'
+    | '/skills/$slug'
+    | '/government-jobs/'
+    | '/interests/'
+    | '/luna-ai/'
+    | '/resources/'
+    | '/roadmaps/'
+    | '/skills/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  AuthRoute: typeof AuthRoute
+  CareerHubRoute: typeof CareerHubRoute
+  CommunityRoute: typeof CommunityRoute
+  ContactRoute: typeof ContactRoute
+  DashboardRoute: typeof DashboardRoute
+  HubRoute: typeof HubRoute
+  IndustryNewsRoute: typeof IndustryNewsRoute
+  LearningHubRoute: typeof LearningHubRoute
+  LunaAiRoute: typeof LunaAiRouteWithChildren
+  MyPlanRoute: typeof MyPlanRoute
+  PlatformRoute: typeof PlatformRoute
+  PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  ProjectsRoute: typeof ProjectsRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TermsOfServiceRoute: typeof TermsOfServiceRoute
+  ApiChatRoute: typeof ApiChatRoute
+  ApiGenerateAudioRoute: typeof ApiGenerateAudioRoute
+  ApiGenerateImageRoute: typeof ApiGenerateImageRoute
+  ApiYoutubeTranscriptRoute: typeof ApiYoutubeTranscriptRoute
+  GovernmentJobsSlugRoute: typeof GovernmentJobsSlugRoute
+  InterestsSlugRoute: typeof InterestsSlugRoute
+  ResourcesSlugRoute: typeof ResourcesSlugRoute
+  RoadmapsBranchRoute: typeof RoadmapsBranchRoute
+  SkillsSlugRoute: typeof SkillsSlugRoute
+  GovernmentJobsIndexRoute: typeof GovernmentJobsIndexRoute
+  InterestsIndexRoute: typeof InterestsIndexRoute
+  ResourcesIndexRoute: typeof ResourcesIndexRoute
+  RoadmapsIndexRoute: typeof RoadmapsIndexRoute
+  SkillsIndexRoute: typeof SkillsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +464,278 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/career-hub': {
+      id: '/career-hub'
+      path: '/career-hub'
+      fullPath: '/career-hub'
+      preLoaderRoute: typeof CareerHubRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/community': {
+      id: '/community'
+      path: '/community'
+      fullPath: '/community'
+      preLoaderRoute: typeof CommunityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/hub': {
+      id: '/hub'
+      path: '/hub'
+      fullPath: '/hub'
+      preLoaderRoute: typeof HubRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/industry-news': {
+      id: '/industry-news'
+      path: '/industry-news'
+      fullPath: '/industry-news'
+      preLoaderRoute: typeof IndustryNewsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/learning-hub': {
+      id: '/learning-hub'
+      path: '/learning-hub'
+      fullPath: '/learning-hub'
+      preLoaderRoute: typeof LearningHubRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/luna-ai': {
+      id: '/luna-ai'
+      path: '/luna-ai'
+      fullPath: '/luna-ai'
+      preLoaderRoute: typeof LunaAiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-plan': {
+      id: '/my-plan'
+      path: '/my-plan'
+      fullPath: '/my-plan'
+      preLoaderRoute: typeof MyPlanRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/platform': {
+      id: '/platform'
+      path: '/platform'
+      fullPath: '/platform'
+      preLoaderRoute: typeof PlatformRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy-policy': {
+      id: '/privacy-policy'
+      path: '/privacy-policy'
+      fullPath: '/privacy-policy'
+      preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects': {
+      id: '/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms-of-service': {
+      id: '/terms-of-service'
+      path: '/terms-of-service'
+      fullPath: '/terms-of-service'
+      preLoaderRoute: typeof TermsOfServiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/chat': {
+      id: '/api/chat'
+      path: '/api/chat'
+      fullPath: '/api/chat'
+      preLoaderRoute: typeof ApiChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/generate-audio': {
+      id: '/api/generate-audio'
+      path: '/api/generate-audio'
+      fullPath: '/api/generate-audio'
+      preLoaderRoute: typeof ApiGenerateAudioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/generate-image': {
+      id: '/api/generate-image'
+      path: '/api/generate-image'
+      fullPath: '/api/generate-image'
+      preLoaderRoute: typeof ApiGenerateImageRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/youtube-transcript': {
+      id: '/api/youtube-transcript'
+      path: '/api/youtube-transcript'
+      fullPath: '/api/youtube-transcript'
+      preLoaderRoute: typeof ApiYoutubeTranscriptRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/government-jobs/': {
+      id: '/government-jobs/'
+      path: '/government-jobs'
+      fullPath: '/government-jobs/'
+      preLoaderRoute: typeof GovernmentJobsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/government-jobs/$slug': {
+      id: '/government-jobs/$slug'
+      path: '/government-jobs/$slug'
+      fullPath: '/government-jobs/$slug'
+      preLoaderRoute: typeof GovernmentJobsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/interests/': {
+      id: '/interests/'
+      path: '/interests'
+      fullPath: '/interests/'
+      preLoaderRoute: typeof InterestsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/interests/$slug': {
+      id: '/interests/$slug'
+      path: '/interests/$slug'
+      fullPath: '/interests/$slug'
+      preLoaderRoute: typeof InterestsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/luna-ai/': {
+      id: '/luna-ai/'
+      path: '/'
+      fullPath: '/luna-ai/'
+      preLoaderRoute: typeof LunaAiIndexRouteImport
+      parentRoute: typeof LunaAiRoute
+    }
+    '/luna-ai/$threadId': {
+      id: '/luna-ai/$threadId'
+      path: '/$threadId'
+      fullPath: '/luna-ai/$threadId'
+      preLoaderRoute: typeof LunaAiThreadIdRouteImport
+      parentRoute: typeof LunaAiRoute
+    }
+    '/resources/': {
+      id: '/resources/'
+      path: '/resources'
+      fullPath: '/resources/'
+      preLoaderRoute: typeof ResourcesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources/$slug': {
+      id: '/resources/$slug'
+      path: '/resources/$slug'
+      fullPath: '/resources/$slug'
+      preLoaderRoute: typeof ResourcesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/roadmaps/': {
+      id: '/roadmaps/'
+      path: '/roadmaps'
+      fullPath: '/roadmaps/'
+      preLoaderRoute: typeof RoadmapsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/roadmaps/$branch': {
+      id: '/roadmaps/$branch'
+      path: '/roadmaps/$branch'
+      fullPath: '/roadmaps/$branch'
+      preLoaderRoute: typeof RoadmapsBranchRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/skills/': {
+      id: '/skills/'
+      path: '/skills'
+      fullPath: '/skills/'
+      preLoaderRoute: typeof SkillsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/skills/$slug': {
+      id: '/skills/$slug'
+      path: '/skills/$slug'
+      fullPath: '/skills/$slug'
+      preLoaderRoute: typeof SkillsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
+interface LunaAiRouteChildren {
+  LunaAiThreadIdRoute: typeof LunaAiThreadIdRoute
+  LunaAiIndexRoute: typeof LunaAiIndexRoute
+}
+
+const LunaAiRouteChildren: LunaAiRouteChildren = {
+  LunaAiThreadIdRoute: LunaAiThreadIdRoute,
+  LunaAiIndexRoute: LunaAiIndexRoute,
+}
+
+const LunaAiRouteWithChildren =
+  LunaAiRoute._addFileChildren(LunaAiRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  AuthRoute: AuthRoute,
+  CareerHubRoute: CareerHubRoute,
+  CommunityRoute: CommunityRoute,
+  ContactRoute: ContactRoute,
+  DashboardRoute: DashboardRoute,
+  HubRoute: HubRoute,
+  IndustryNewsRoute: IndustryNewsRoute,
+  LearningHubRoute: LearningHubRoute,
+  LunaAiRoute: LunaAiRouteWithChildren,
+  MyPlanRoute: MyPlanRoute,
+  PlatformRoute: PlatformRoute,
+  PrivacyPolicyRoute: PrivacyPolicyRoute,
+  ProjectsRoute: ProjectsRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TermsOfServiceRoute: TermsOfServiceRoute,
+  ApiChatRoute: ApiChatRoute,
+  ApiGenerateAudioRoute: ApiGenerateAudioRoute,
+  ApiGenerateImageRoute: ApiGenerateImageRoute,
+  ApiYoutubeTranscriptRoute: ApiYoutubeTranscriptRoute,
+  GovernmentJobsSlugRoute: GovernmentJobsSlugRoute,
+  InterestsSlugRoute: InterestsSlugRoute,
+  ResourcesSlugRoute: ResourcesSlugRoute,
+  RoadmapsBranchRoute: RoadmapsBranchRoute,
+  SkillsSlugRoute: SkillsSlugRoute,
+  GovernmentJobsIndexRoute: GovernmentJobsIndexRoute,
+  InterestsIndexRoute: InterestsIndexRoute,
+  ResourcesIndexRoute: ResourcesIndexRoute,
+  RoadmapsIndexRoute: RoadmapsIndexRoute,
+  SkillsIndexRoute: SkillsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
