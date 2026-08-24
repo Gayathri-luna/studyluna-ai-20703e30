@@ -14,6 +14,7 @@ const NAV_LINKS = [
   { to: "/roadmaps", label: "Roadmaps" },
   { to: "/my-plan", label: "My Plan" },
   { to: "/skills", label: "Skills" },
+  { to: "/interests", label: "Interests" },
   { to: "/projects", label: "Projects" },
   { to: "/government-jobs", label: "Government Jobs" },
   { to: "/industry-news", label: "Career Updates" },
