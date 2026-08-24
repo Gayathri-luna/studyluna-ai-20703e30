@@ -1,11 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { filterSkills, type Skill, type SkillCategory } from "@/data/skills";
 import { branches, branchFields } from "@/data/branches";
 import { studyFields, ALL_FIELDS } from "@/data/fields";
 import { AskLunaButton } from "@/components/AskLunaButton";
 import { useAuth } from "@/lib/auth";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Search, X } from "lucide-react";
+
 
 const DESCRIPTION =
   "Technical, domain and soft skills for every field of study — each with its own focused guide, steps, resources and career relevance.";
