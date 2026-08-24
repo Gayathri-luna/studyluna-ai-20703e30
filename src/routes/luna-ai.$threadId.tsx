@@ -466,6 +466,16 @@ function ChatWindow({
     }
   };
 
+  /** Routes a typed YouTube link through the transcript flow automatically. */
+  const handleSend = (text: string) => {
+    const link = attachments.length === 0 ? findYouTubeLink(text) : null;
+    if (link) {
+      setInput(text.replace(link, "").trim());
+      void submitYouTube(link);
+      return;
+    }
+    void submit(text);
+  };
 
 
   const runPodcast = (output: PodcastOutput) => {
