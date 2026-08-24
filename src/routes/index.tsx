@@ -66,6 +66,12 @@ const FEATURES = [
     text: "ISRO, DRDO, GATE, PSUs — eligibility to salary.",
   },
   {
+    to: "/exams",
+    icon: GraduationCap,
+    title: "Exams & Preparation",
+    text: "CAT, XAT, GATE, GRE, GMAT, IELTS — purpose, dates and official links.",
+  },
+  {
     to: "/resources",
     icon: BookOpen,
     title: "Learning Resources",

@@ -17,6 +17,7 @@ const NAV_LINKS = [
   { to: "/interests", label: "Interests" },
   { to: "/projects", label: "Projects" },
   { to: "/government-jobs", label: "Government Jobs" },
+  { to: "/exams", label: "Exams" },
   { to: "/industry-news", label: "Career Updates" },
   { to: "/resources", label: "Resources" },
   { to: "/community", label: "Community" },
