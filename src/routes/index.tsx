@@ -7,6 +7,7 @@ import {
   Landmark,
   BookOpen,
   Users,
+  Sparkles,
   ArrowRight,
 } from "lucide-react";
 import lunaLogo from "@/assets/luna-logo.png";
