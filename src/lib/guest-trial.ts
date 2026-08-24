@@ -75,8 +75,9 @@ export function useGuestTrial(enabled: boolean) {
     setTrial(next);
   }, []);
 
+  void tick; // re-render trigger so the badge/timer stay current
   const left = messagesLeft(trial);
-  const expired = enabled && trialOver(trial, Date.now() + tick * 0);
+  const expired = enabled && trialOver(trial);
   const minutesLeft =
     trial.startedAt === null
       ? Math.round(GUEST_WINDOW_MS / 60_000)
