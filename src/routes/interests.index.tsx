@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { interests } from "@/data/interests";
 import { AskLunaButton } from "@/components/AskLunaButton";
+import { BookmarkButton } from "@/components/BookmarkButton";
 import * as Icons from "lucide-react";
 import { ArrowRight } from "lucide-react";
 
