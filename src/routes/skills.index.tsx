@@ -173,28 +173,53 @@ function SkillsPage() {
       </div>
 
       <section className="mt-12" aria-labelledby="skill-category">
-        <div className="flex flex-wrap gap-2 border-b border-border/70 pb-3">
-          {CATEGORIES.map((c) => (
-            <button
-              key={c.key}
-              type="button"
-              onClick={() => setCategory(c.key)}
-              aria-pressed={category === c.key}
-              className={`rounded-t-lg px-4 py-2 text-sm font-semibold transition-colors ${
-                category === c.key
-                  ? "bg-primary/10 text-primary"
-                  : "text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              {c.label}
-            </button>
-          ))}
+        <div className="sticky top-16 z-30 -mx-4 space-y-3 border-b border-border/70 bg-background/85 px-4 pb-3 pt-3 backdrop-blur-xl">
+          <div className="relative w-full">
+            <Search aria-hidden className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+            <input
+              type="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search skills by name, category or description…"
+              aria-label="Search skills"
+              className="w-full rounded-full border border-border/70 bg-card/60 py-2.5 pl-9 pr-10 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground focus:border-primary/60"
+            />
+            {query && (
+              <button
+                type="button"
+                onClick={() => setQuery("")}
+                aria-label="Clear search"
+                className="absolute right-2.5 top-1/2 inline-flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground"
+              >
+                <X className="h-3.5 w-3.5" />
+              </button>
+            )}
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {CATEGORIES.map((c) => (
+              <button
+                key={c.key}
+                type="button"
+                onClick={() => setCategory(c.key)}
+                aria-pressed={category === c.key}
+                className={`rounded-full px-3.5 py-1.5 text-xs font-semibold transition-colors sm:text-sm ${
+                  category === c.key
+                    ? "bg-primary text-primary-foreground"
+                    : "border border-border/70 bg-card/50 text-muted-foreground hover:text-foreground"
+                }`}
+              >
+                {c.label}
+              </button>
+            ))}
+          </div>
         </div>
         <h2 id="skill-category" className="mt-6 text-2xl font-bold tracking-tight text-foreground">
           {activeCategory.label}
         </h2>
         <p className="mt-1 text-sm text-muted-foreground">{activeCategory.blurb}</p>
-        <SkillGrid items={items} />
+        <SkillGrid items={items} query={debouncedQuery.trim()} />
+      </section>
+
       </section>
 
       <AskLunaButton topic={`${activeCategory.label} for engineering and professional students`} />
