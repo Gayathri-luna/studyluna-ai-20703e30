@@ -402,6 +402,72 @@ function ChatWindow({
     }
   };
 
+  /** Sends a YouTube video to LunaAI, using its captions when available. */
+  const submitYouTube = async (rawUrl: string, pasted?: string) => {
+    const videoId = extractVideoId(rawUrl);
+    if (!videoId) {
+      toast.error("Paste a valid YouTube link (youtube.com/watch?v=… or youtu.be/…).");
+      return;
+    }
+    const link = watchUrl(videoId);
+    const question = input.trim();
+
+    if (pasted?.trim()) {
+      setYoutubeOpen(false);
+      setYoutubeNeedsPaste(false);
+      setYoutubeUrl("");
+      setYoutubePaste("");
+      await submit(
+        `${question || "Explain this YouTube video and turn it into revision notes."}\n\nYouTube video: ${link}\n\n--- Transcript (pasted by the student) ---\n${pasted.trim().slice(0, 40000)}`,
+      );
+      return;
+    }
+
+    setYoutubeLoading(true);
+    try {
+      const response = await fetch("/api/youtube-transcript", {
+        method: "POST",
+        headers: await authHeaders(),
+        body: JSON.stringify({ url: link }),
+      });
+      if (!response.ok) {
+        const message = (await response.text().catch(() => "")).trim();
+        toast.error(message.slice(0, 200) || "Could not read that video.");
+        setYoutubeNeedsPaste(true);
+        return;
+      }
+      const payload = (await response.json()) as {
+        title?: string | null;
+        transcript?: string | null;
+        reason?: string;
+      };
+
+      if (!payload.transcript) {
+        setYoutubeNeedsPaste(true);
+        toast.error(
+          `${payload.reason ?? "No transcript found."} You can paste the transcript manually below.`,
+        );
+        return;
+      }
+
+      setYoutubeOpen(false);
+      setYoutubeNeedsPaste(false);
+      setYoutubeUrl("");
+      await submit(
+        `${question || "Explain this YouTube video and turn it into revision notes."}\n\nYouTube video: ${link}${
+          payload.title ? `\nTitle: ${payload.title}` : ""
+        }\n\n--- Transcript ---\n${payload.transcript}`,
+      );
+    } catch (error) {
+      toast.error(friendlyError(error));
+      setYoutubeNeedsPaste(true);
+    } finally {
+      setYoutubeLoading(false);
+    }
+  };
+
+
+
   const runPodcast = (output: PodcastOutput) => {
     if (!attachments.some((a) => a.file.type.startsWith("audio/"))) {
       toast.error("Upload a podcast/audio file (mp3 or wav) first.");
