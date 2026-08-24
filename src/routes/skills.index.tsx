@@ -90,8 +90,22 @@ function SkillsPage() {
   const [branchSlug, setBranchSlug] = useState<string | null>(branch ?? null);
   const activeBranch = branchOptions.some((b) => b.slug === branchSlug) ? branchSlug : null;
 
-  const items = useMemo(() => filterSkills(category, field, activeBranch), [category, field, activeBranch]);
+  const [query, setQuery] = useState("");
+  const debouncedQuery = useDebounced(query);
+
+  const items = useMemo(() => {
+    const base = filterSkills(category, field, activeBranch);
+    const q = debouncedQuery.trim().toLowerCase();
+    if (!q) return base;
+    return base.filter((s) =>
+      [s.name, s.summary, s.category, s.type, ...(s.fields ?? []), ...(s.branches ?? [])]
+        .join(" ")
+        .toLowerCase()
+        .includes(q),
+    );
+  }, [category, field, activeBranch, debouncedQuery]);
   const activeCategory = CATEGORIES.find((c) => c.key === category)!;
+
 
   return (
     <div className="container mx-auto px-4 py-14">
