@@ -190,6 +190,11 @@ function ChatWindow({
   const [input, setInput] = useState(initialInput);
   const [attachments, setAttachments] = useState<Attachment[]>([]);
   const [podcastOpen, setPodcastOpen] = useState(false);
+  const [youtubeOpen, setYoutubeOpen] = useState(false);
+  const [youtubeUrl, setYoutubeUrl] = useState("");
+  const [youtubePaste, setYoutubePaste] = useState("");
+  const [youtubeLoading, setYoutubeLoading] = useState(false);
+  const [youtubeNeedsPaste, setYoutubeNeedsPaste] = useState(false);
   const [lastPrompt, setLastPrompt] = useState("");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
