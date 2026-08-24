@@ -103,6 +103,36 @@ export type Database = {
         }
         Relationships: []
       }
+      interest_progress: {
+        Row: {
+          created_at: string
+          id: string
+          section: string
+          slug: string
+          step_index: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          section: string
+          slug: string
+          step_index: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          section?: string
+          slug?: string
+          step_index?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           branch: string | null

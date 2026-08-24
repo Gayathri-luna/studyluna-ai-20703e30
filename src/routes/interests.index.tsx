@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { interests } from "@/data/interests";
 import { AskLunaButton } from "@/components/AskLunaButton";
+import { BookmarkButton } from "@/components/BookmarkButton";
 import * as Icons from "lucide-react";
 import { ArrowRight } from "lucide-react";
 
@@ -54,7 +55,17 @@ function InterestsPage() {
                 Open guide <ArrowRight className="h-3 w-3 transition-transform group-hover:translate-x-0.5" />
               </span>
             </Link>
-            <AskLunaButton variant="inline" topic={item.name} label="Ask Luna" className="mt-3" />
+            <div className="mt-3 flex flex-wrap items-center gap-2">
+              <AskLunaButton variant="inline" topic={item.name} label="Ask Luna" />
+              <BookmarkButton
+                item={{
+                  kind: "interest",
+                  slug: item.slug,
+                  label: item.name,
+                  href: `/interests/${item.slug}`,
+                }}
+              />
+            </div>
           </div>
         ))}
       </div>

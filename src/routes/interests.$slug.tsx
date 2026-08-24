@@ -1,6 +1,9 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { interestBySlug, type Interest } from "@/data/interests";
-import { ArrowLeft, ExternalLink, Sparkles } from "lucide-react";
+import { ArrowLeft, Check, ExternalLink, Sparkles } from "lucide-react";
+import { BookmarkButton } from "@/components/BookmarkButton";
+import { useInterestProgress, type ProgressSection } from "@/lib/interest-progress";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/interests/$slug")({
   loader: ({ params }): { interest: Interest } => {
@@ -38,6 +41,29 @@ export const Route = createFileRoute("/interests/$slug")({
 
 function InterestPage() {
   const { interest } = Route.useLoaderData() as { interest: Interest };
+  const progress = useInterestProgress(interest.slug);
+  const totalSteps = interest.basics.length + interest.progress.length;
+
+  const StepToggle = ({ section, index }: { section: ProgressSection; index: number }) => {
+    if (!progress.signedIn) return null;
+    const done = progress.isDone(section, index);
+    return (
+      <button
+        type="button"
+        aria-pressed={done}
+        aria-label={done ? "Mark step as not done" : "Mark step as done"}
+        onClick={() => void progress.toggle(section, index)}
+        className={cn(
+          "ml-auto inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition-colors",
+          done
+            ? "border-primary bg-primary text-primary-foreground"
+            : "border-border/70 text-muted-foreground hover:border-primary/60",
+        )}
+      >
+        <Check className="h-3.5 w-3.5" />
+      </button>
+    );
+  };
 
   return (
     <div className="container mx-auto max-w-3xl px-4 py-12">
@@ -52,6 +78,24 @@ function InterestPage() {
         <p className="text-xs font-semibold uppercase tracking-widest text-primary">Hobby guide</p>
         <h1 className="mt-1 text-4xl font-extrabold tracking-tight text-foreground">{interest.name}</h1>
         <p className="mt-3 text-lg text-muted-foreground">{interest.summary}</p>
+        <div className="mt-5 flex flex-wrap items-center gap-3">
+          <BookmarkButton
+            showLabel
+            item={{
+              kind: "interest",
+              slug: interest.slug,
+              label: interest.name,
+              href: `/interests/${interest.slug}`,
+            }}
+          />
+          {progress.signedIn ? (
+            <span className="text-xs font-medium text-muted-foreground">
+              {progress.completed} of {totalSteps} steps done
+            </span>
+          ) : (
+            <span className="text-xs text-muted-foreground">Sign in to save your progress</span>
+          )}
+        </div>
       </header>
 
       <section className="mt-10">
@@ -63,6 +107,7 @@ function InterestPage() {
                 {index + 1}
               </span>
               <span className="text-sm text-muted-foreground">{item}</span>
+              <StepToggle section="basics" index={index} />
             </li>
           ))}
         </ol>
@@ -94,10 +139,13 @@ function InterestPage() {
       <section className="mt-8">
         <h2 className="text-lg font-bold text-foreground">How to progress</h2>
         <ul className="mt-3 space-y-2">
-          {interest.progress.map((step) => (
-            <li key={step} className="flex gap-2 text-sm text-muted-foreground">
-              <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-              {step}
+          {interest.progress.map((step, index) => (
+            <li key={step} className="flex items-center gap-2 text-sm text-muted-foreground">
+              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+              <span className={progress.isDone("progress", index) ? "line-through opacity-70" : undefined}>
+                {step}
+              </span>
+              <StepToggle section="progress" index={index} />
             </li>
           ))}
         </ul>
