@@ -220,8 +220,6 @@ function SkillsPage() {
         <SkillGrid items={items} query={debouncedQuery.trim()} />
       </section>
 
-      </section>
-
       <AskLunaButton topic={`${activeCategory.label} for engineering and professional students`} />
     </div>
   );
