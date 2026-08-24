@@ -199,10 +199,10 @@ function AboutPage() {
                 </div>
 
                 <blockquote className="border-l-4 border-primary pl-4 italic text-muted-foreground">
-                  &ldquo;I created Luna.io to solve a problem faced by many ECE
-                  learners—knowing what to learn, where to start, and how to build a
-                  successful career. My vision is to create a platform where anyone
-                  interested in Electronics & Communication Engineering can find
+                  &ldquo;I created Luna.io to solve a problem faced by many
+                  engineering students—knowing what to learn, where to start, and how to build a
+                  successful career. My vision is to create a platform where every
+                  engineering student can find
                   structured learning paths, practical projects, career guidance,
                   AI-powered mentorship, and the latest industry insights, all in one
                   place.&rdquo;
