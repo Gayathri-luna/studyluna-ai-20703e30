@@ -19,9 +19,12 @@ import {
   RotateCcw,
   Square,
   Eraser,
+  Youtube,
+  Loader2,
 } from "lucide-react";
 import { toast } from "sonner";
 import { readLunaModel } from "@/lib/luna-models";
+import { extractVideoId, findYouTubeLink, watchUrl } from "@/lib/youtube";
 import { supabase } from "@/integrations/supabase/client";
 import {
   LEARN_MODES,
