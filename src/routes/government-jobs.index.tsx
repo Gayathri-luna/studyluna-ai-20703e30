@@ -80,6 +80,9 @@ function GovJobsPage() {
             <p className="mt-1 text-xs text-muted-foreground">{job.full}</p>
             <p className="mt-3 text-sm text-muted-foreground">{job.summary}</p>
             <p className="mt-3 text-xs font-medium text-foreground">{job.salary}</p>
+            {job.lastDate && (
+              <p className="mt-1 text-xs text-muted-foreground">Last date: {job.lastDate}</p>
+            )}
           </Link>
         ))}
       </div>

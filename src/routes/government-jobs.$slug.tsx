@@ -81,6 +81,11 @@ function GovJobDetail() {
         <p className="mt-4 rounded-lg border border-primary/30 bg-primary/5 px-4 py-3 text-sm font-medium text-foreground">
           Salary: {job.salary}
         </p>
+        {job.lastDate && (
+          <p className="mt-2 rounded-lg border border-border/70 bg-card/50 px-4 py-3 text-sm font-medium text-foreground">
+            Last date to apply: {job.lastDate}
+          </p>
+        )}
       </header>
 
       <div className="mt-8 grid gap-5 md:grid-cols-2">
