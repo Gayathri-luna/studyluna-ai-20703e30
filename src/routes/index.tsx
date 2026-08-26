@@ -10,6 +10,7 @@ import {
   Sparkles,
   ArrowRight,
   GraduationCap,
+  HeartPulse,
 } from "lucide-react";
 import lunaLogo from "@/assets/luna-logo.png";
 import { AnimatedButton, HoverLift, LunaGlow, Particles, Reveal, Stagger } from "@/components/motion";
@@ -83,6 +84,12 @@ const FEATURES = [
     icon: Sparkles,
     title: "Interests & Hobbies",
     text: "Explore hobbies with basics, free resources and progress tracking.",
+  },
+  {
+    to: "/health",
+    icon: HeartPulse,
+    title: "Healthcare Education",
+    text: "Prevention, nutrition, mental wellness and medical AI — with trusted sources.",
   },
   {
     to: "/community",

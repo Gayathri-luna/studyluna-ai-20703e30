@@ -1,7 +1,9 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Menu, X, Search, LogIn, LayoutDashboard } from "lucide-react";
+import { Menu, X, Search, LogIn, LayoutDashboard, LogOut } from "lucide-react";
+import { useQueryClient } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import { ThemeToggle } from "@/components/ThemeToggle";
 import { GlobalSearch } from "@/components/GlobalSearch";
 import { useAuth } from "@/lib/auth";
@@ -16,6 +18,7 @@ const NAV_LINKS = [
   { to: "/skills", label: "Skills" },
   { to: "/interests", label: "Interests" },
   { to: "/projects", label: "Projects" },
+  { to: "/health", label: "Healthcare" },
   { to: "/government-jobs", label: "Government Jobs" },
   { to: "/exams", label: "Exams" },
   { to: "/industry-news", label: "Career Updates" },
@@ -28,8 +31,18 @@ const NAV_LINKS = [
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [accountOpen, setAccountOpen] = useState(false);
   const { user } = useAuth();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  async function handleSignOut() {
+    setAccountOpen(false);
+    await queryClient.cancelQueries();
+    queryClient.clear();
+    await supabase.auth.signOut();
+    await navigate({ to: "/auth", search: {}, replace: true });
+  }
 
   const reduced = useReducedMotion();
   const [scrolled, setScrolled] = useState(false);
@@ -41,6 +54,19 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Close the account menu on outside click / Escape.
+  useEffect(() => {
+    if (!accountOpen) return;
+    const close = () => setAccountOpen(false);
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setAccountOpen(false); };
+    window.addEventListener("click", close);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("click", close);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [accountOpen]);
 
   return (
     <motion.header
@@ -93,13 +119,47 @@ export function Navbar() {
           </button>
           <ThemeToggle />
           {user ? (
-            <button
-              type="button"
-              onClick={() => navigate({ to: "/dashboard" })}
-              className="hidden items-center gap-1.5 rounded-full bg-primary px-3.5 py-2 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.03] sm:inline-flex"
-            >
-              <LayoutDashboard className="h-4 w-4" /> Dashboard
-            </button>
+            <div className="relative hidden sm:block">
+              <button
+                type="button"
+                aria-haspopup="menu"
+                aria-expanded={accountOpen}
+                onClick={(e) => { e.stopPropagation(); setAccountOpen((v) => !v); }}
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-3 py-1.5 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.03]"
+              >
+                <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary-foreground/20 text-[11px] uppercase">
+                  {(user.email ?? "U").charAt(0)}
+                </span>
+                Account
+              </button>
+              {accountOpen && (
+                <div
+                  role="menu"
+                  className="absolute right-0 mt-2 w-56 overflow-hidden rounded-xl border border-border bg-popover p-1 shadow-lg"
+                >
+                  <p className="truncate px-3 py-2 text-xs text-muted-foreground">{user.email}</p>
+                  <button
+                    type="button"
+                    role="menuitem"
+                    onClick={() => {
+                      setAccountOpen(false);
+                      void navigate({ to: "/dashboard" });
+                    }}
+                    className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-foreground hover:bg-accent/60"
+                  >
+                    <LayoutDashboard className="h-4 w-4" /> Dashboard
+                  </button>
+                  <button
+                    type="button"
+                    role="menuitem"
+                    onClick={() => void handleSignOut()}
+                    className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-foreground hover:bg-accent/60"
+                  >
+                    <LogOut className="h-4 w-4" /> Sign out
+                  </button>
+                </div>
+              )}
+            </div>
           ) : (
             <Link
               to="/auth"
