@@ -16,6 +16,7 @@ const NAV_LINKS = [
   { to: "/skills", label: "Skills" },
   { to: "/interests", label: "Interests" },
   { to: "/projects", label: "Projects" },
+  { to: "/health", label: "Healthcare" },
   { to: "/government-jobs", label: "Government Jobs" },
   { to: "/exams", label: "Exams" },
   { to: "/industry-news", label: "Career Updates" },
