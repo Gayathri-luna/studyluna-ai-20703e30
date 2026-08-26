@@ -55,6 +55,19 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close the account menu on outside click / Escape.
+  useEffect(() => {
+    if (!accountOpen) return;
+    const close = () => setAccountOpen(false);
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setAccountOpen(false); };
+    window.addEventListener("click", close);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("click", close);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [accountOpen]);
+
   return (
     <motion.header
       initial={reduced ? false : { y: -24, opacity: 0 }}
@@ -111,7 +124,7 @@ export function Navbar() {
                 type="button"
                 aria-haspopup="menu"
                 aria-expanded={accountOpen}
-                onClick={() => setAccountOpen((v) => !v)}
+                onClick={(e) => { e.stopPropagation(); setAccountOpen((v) => !v); }}
                 className="inline-flex items-center gap-2 rounded-full bg-primary px-3 py-1.5 text-sm font-semibold text-primary-foreground transition-transform hover:scale-[1.03]"
               >
                 <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary-foreground/20 text-[11px] uppercase">
