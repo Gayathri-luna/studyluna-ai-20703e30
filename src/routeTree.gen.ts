@@ -33,6 +33,7 @@ import { Route as ApiGenerateImageRouteImport } from './routes/api/generate-imag
 import { Route as ApiYoutubeTranscriptRouteImport } from './routes/api/youtube-transcript'
 import { Route as GovernmentJobsIndexRouteImport } from './routes/government-jobs.index'
 import { Route as GovernmentJobsSlugRouteImport } from './routes/government-jobs.$slug'
+import { Route as HealthIndexRouteImport } from './routes/health.index'
 import { Route as InterestsIndexRouteImport } from './routes/interests.index'
 import { Route as InterestsSlugRouteImport } from './routes/interests.$slug'
 import { Route as LunaAiIndexRouteImport } from './routes/luna-ai.index'
@@ -164,6 +165,11 @@ const GovernmentJobsSlugRoute = GovernmentJobsSlugRouteImport.update({
   path: '/government-jobs/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HealthIndexRoute = HealthIndexRouteImport.update({
+  id: '/health/',
+  path: '/health/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InterestsIndexRoute = InterestsIndexRouteImport.update({
   id: '/interests/',
   path: '/interests/',
@@ -245,6 +251,7 @@ export interface FileRoutesByFullPath {
   '/roadmaps/$branch': typeof RoadmapsBranchRoute
   '/skills/$slug': typeof SkillsSlugRoute
   '/government-jobs/': typeof GovernmentJobsIndexRoute
+  '/health/': typeof HealthIndexRoute
   '/interests/': typeof InterestsIndexRoute
   '/luna-ai/': typeof LunaAiIndexRoute
   '/resources/': typeof ResourcesIndexRoute
@@ -280,6 +287,7 @@ export interface FileRoutesByTo {
   '/roadmaps/$branch': typeof RoadmapsBranchRoute
   '/skills/$slug': typeof SkillsSlugRoute
   '/government-jobs': typeof GovernmentJobsIndexRoute
+  '/health': typeof HealthIndexRoute
   '/interests': typeof InterestsIndexRoute
   '/luna-ai': typeof LunaAiIndexRoute
   '/resources': typeof ResourcesIndexRoute
@@ -317,6 +325,7 @@ export interface FileRoutesById {
   '/roadmaps/$branch': typeof RoadmapsBranchRoute
   '/skills/$slug': typeof SkillsSlugRoute
   '/government-jobs/': typeof GovernmentJobsIndexRoute
+  '/health/': typeof HealthIndexRoute
   '/interests/': typeof InterestsIndexRoute
   '/luna-ai/': typeof LunaAiIndexRoute
   '/resources/': typeof ResourcesIndexRoute
@@ -355,6 +364,7 @@ export interface FileRouteTypes {
     | '/roadmaps/$branch'
     | '/skills/$slug'
     | '/government-jobs/'
+    | '/health/'
     | '/interests/'
     | '/luna-ai/'
     | '/resources/'
@@ -390,6 +400,7 @@ export interface FileRouteTypes {
     | '/roadmaps/$branch'
     | '/skills/$slug'
     | '/government-jobs'
+    | '/health'
     | '/interests'
     | '/luna-ai'
     | '/resources'
@@ -426,6 +437,7 @@ export interface FileRouteTypes {
     | '/roadmaps/$branch'
     | '/skills/$slug'
     | '/government-jobs/'
+    | '/health/'
     | '/interests/'
     | '/luna-ai/'
     | '/resources/'
@@ -462,6 +474,7 @@ export interface RootRouteChildren {
   RoadmapsBranchRoute: typeof RoadmapsBranchRoute
   SkillsSlugRoute: typeof SkillsSlugRoute
   GovernmentJobsIndexRoute: typeof GovernmentJobsIndexRoute
+  HealthIndexRoute: typeof HealthIndexRoute
   InterestsIndexRoute: typeof InterestsIndexRoute
   ResourcesIndexRoute: typeof ResourcesIndexRoute
   RoadmapsIndexRoute: typeof RoadmapsIndexRoute
@@ -638,6 +651,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof GovernmentJobsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/health/': {
+      id: '/health/'
+      path: '/health'
+      fullPath: '/health/'
+      preLoaderRoute: typeof HealthIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/interests/': {
       id: '/interests/'
       path: '/interests'
@@ -753,6 +773,7 @@ const rootRouteChildren: RootRouteChildren = {
   RoadmapsBranchRoute: RoadmapsBranchRoute,
   SkillsSlugRoute: SkillsSlugRoute,
   GovernmentJobsIndexRoute: GovernmentJobsIndexRoute,
+  HealthIndexRoute: HealthIndexRoute,
   InterestsIndexRoute: InterestsIndexRoute,
   ResourcesIndexRoute: ResourcesIndexRoute,
   RoadmapsIndexRoute: RoadmapsIndexRoute,
