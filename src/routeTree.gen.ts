@@ -34,6 +34,7 @@ import { Route as ApiYoutubeTranscriptRouteImport } from './routes/api/youtube-t
 import { Route as GovernmentJobsIndexRouteImport } from './routes/government-jobs.index'
 import { Route as GovernmentJobsSlugRouteImport } from './routes/government-jobs.$slug'
 import { Route as HealthIndexRouteImport } from './routes/health.index'
+import { Route as HealthSlugRouteImport } from './routes/health.$slug'
 import { Route as InterestsIndexRouteImport } from './routes/interests.index'
 import { Route as InterestsSlugRouteImport } from './routes/interests.$slug'
 import { Route as LunaAiIndexRouteImport } from './routes/luna-ai.index'
@@ -170,6 +171,11 @@ const HealthIndexRoute = HealthIndexRouteImport.update({
   path: '/health/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HealthSlugRoute = HealthSlugRouteImport.update({
+  id: '/health/$slug',
+  path: '/health/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const InterestsIndexRoute = InterestsIndexRouteImport.update({
   id: '/interests/',
   path: '/interests/',
@@ -245,6 +251,7 @@ export interface FileRoutesByFullPath {
   '/api/generate-image': typeof ApiGenerateImageRoute
   '/api/youtube-transcript': typeof ApiYoutubeTranscriptRoute
   '/government-jobs/$slug': typeof GovernmentJobsSlugRoute
+  '/health/$slug': typeof HealthSlugRoute
   '/interests/$slug': typeof InterestsSlugRoute
   '/luna-ai/$threadId': typeof LunaAiThreadIdRoute
   '/resources/$slug': typeof ResourcesSlugRoute
@@ -281,6 +288,7 @@ export interface FileRoutesByTo {
   '/api/generate-image': typeof ApiGenerateImageRoute
   '/api/youtube-transcript': typeof ApiYoutubeTranscriptRoute
   '/government-jobs/$slug': typeof GovernmentJobsSlugRoute
+  '/health/$slug': typeof HealthSlugRoute
   '/interests/$slug': typeof InterestsSlugRoute
   '/luna-ai/$threadId': typeof LunaAiThreadIdRoute
   '/resources/$slug': typeof ResourcesSlugRoute
@@ -319,6 +327,7 @@ export interface FileRoutesById {
   '/api/generate-image': typeof ApiGenerateImageRoute
   '/api/youtube-transcript': typeof ApiYoutubeTranscriptRoute
   '/government-jobs/$slug': typeof GovernmentJobsSlugRoute
+  '/health/$slug': typeof HealthSlugRoute
   '/interests/$slug': typeof InterestsSlugRoute
   '/luna-ai/$threadId': typeof LunaAiThreadIdRoute
   '/resources/$slug': typeof ResourcesSlugRoute
@@ -358,6 +367,7 @@ export interface FileRouteTypes {
     | '/api/generate-image'
     | '/api/youtube-transcript'
     | '/government-jobs/$slug'
+    | '/health/$slug'
     | '/interests/$slug'
     | '/luna-ai/$threadId'
     | '/resources/$slug'
@@ -394,6 +404,7 @@ export interface FileRouteTypes {
     | '/api/generate-image'
     | '/api/youtube-transcript'
     | '/government-jobs/$slug'
+    | '/health/$slug'
     | '/interests/$slug'
     | '/luna-ai/$threadId'
     | '/resources/$slug'
@@ -431,6 +442,7 @@ export interface FileRouteTypes {
     | '/api/generate-image'
     | '/api/youtube-transcript'
     | '/government-jobs/$slug'
+    | '/health/$slug'
     | '/interests/$slug'
     | '/luna-ai/$threadId'
     | '/resources/$slug'
@@ -469,6 +481,7 @@ export interface RootRouteChildren {
   ApiGenerateImageRoute: typeof ApiGenerateImageRoute
   ApiYoutubeTranscriptRoute: typeof ApiYoutubeTranscriptRoute
   GovernmentJobsSlugRoute: typeof GovernmentJobsSlugRoute
+  HealthSlugRoute: typeof HealthSlugRoute
   InterestsSlugRoute: typeof InterestsSlugRoute
   ResourcesSlugRoute: typeof ResourcesSlugRoute
   RoadmapsBranchRoute: typeof RoadmapsBranchRoute
@@ -658,6 +671,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HealthIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/health/$slug': {
+      id: '/health/$slug'
+      path: '/health/$slug'
+      fullPath: '/health/$slug'
+      preLoaderRoute: typeof HealthSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/interests/': {
       id: '/interests/'
       path: '/interests'
@@ -768,6 +788,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiGenerateImageRoute: ApiGenerateImageRoute,
   ApiYoutubeTranscriptRoute: ApiYoutubeTranscriptRoute,
   GovernmentJobsSlugRoute: GovernmentJobsSlugRoute,
+  HealthSlugRoute: HealthSlugRoute,
   InterestsSlugRoute: InterestsSlugRoute,
   ResourcesSlugRoute: ResourcesSlugRoute,
   RoadmapsBranchRoute: RoadmapsBranchRoute,
