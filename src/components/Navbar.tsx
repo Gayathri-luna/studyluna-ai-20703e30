@@ -31,8 +31,18 @@ const NAV_LINKS = [
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [accountOpen, setAccountOpen] = useState(false);
   const { user } = useAuth();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  async function handleSignOut() {
+    setAccountOpen(false);
+    await queryClient.cancelQueries();
+    queryClient.clear();
+    await supabase.auth.signOut();
+    await navigate({ to: "/auth", search: {}, replace: true });
+  }
 
   const reduced = useReducedMotion();
   const [scrolled, setScrolled] = useState(false);
