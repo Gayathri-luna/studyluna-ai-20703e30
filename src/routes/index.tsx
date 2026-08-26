@@ -10,6 +10,7 @@ import {
   Sparkles,
   ArrowRight,
   GraduationCap,
+  HeartPulse,
 } from "lucide-react";
 import lunaLogo from "@/assets/luna-logo.png";
 import { AnimatedButton, HoverLift, LunaGlow, Particles, Reveal, Stagger } from "@/components/motion";
