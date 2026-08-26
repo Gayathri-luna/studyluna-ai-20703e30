@@ -85,6 +85,12 @@ const FEATURES = [
     text: "Explore hobbies with basics, free resources and progress tracking.",
   },
   {
+    to: "/health",
+    icon: HeartPulse,
+    title: "Healthcare Education",
+    text: "Prevention, nutrition, mental wellness and medical AI — with trusted sources.",
+  },
+  {
     to: "/community",
     icon: Users,
     title: "Community",
