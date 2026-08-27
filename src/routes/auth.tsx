@@ -35,6 +35,7 @@ function AuthPage() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [busy, setBusy] = useState(false);
+  const [googleBusy, setGoogleBusy] = useState(false);
   const { user, loading } = useAuth();
   const navigate = useNavigate();
   const { redirect } = Route.useSearch();
