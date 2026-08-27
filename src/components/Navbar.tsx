@@ -11,22 +11,70 @@ import lunaLogo from "@/assets/luna-logo.png";
 
 const NAV_LINKS = [
   { to: "/", label: "Home" },
-  { to: "/platform", label: "Platform" },
-  { to: "/hub", label: "Hub", search: { tab: "learning" } },
+  { to: "/luna-ai", label: "LunaAI" },
   { to: "/roadmaps", label: "Roadmaps" },
-  { to: "/my-plan", label: "My Plan" },
   { to: "/skills", label: "Skills" },
-  { to: "/interests", label: "Interests" },
-  { to: "/projects", label: "Projects" },
-  { to: "/health", label: "Healthcare" },
-  { to: "/government-jobs", label: "Government Jobs" },
   { to: "/exams", label: "Exams" },
-  { to: "/industry-news", label: "Career Updates" },
   { to: "/resources", label: "Resources" },
+  { to: "/interests", label: "Interests" },
+  { to: "/health", label: "Healthcare" },
+  { to: "/hub", label: "Hub", search: { tab: "learning" } },
+  { to: "/projects", label: "Projects" },
+  { to: "/platform", label: "Platform" },
+  { to: "/career-hub", label: "Career Hub", search: { kind: "all" } },
+  { to: "/government-jobs", label: "Government Jobs" },
+  { to: "/industry-news", label: "Career Updates" },
   { to: "/community", label: "Community" },
+  { to: "/my-plan", label: "My Plan" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ] as const;
+
+type NavItem = { to: string; label: string; search?: Record<string, unknown> };
+
+const NAV_GROUPS: { label: string; to?: string; search?: Record<string, unknown>; items?: NavItem[] }[] = [
+  { label: "LunaAI", to: "/luna-ai" },
+  {
+    label: "Learn",
+    items: [
+      { to: "/roadmaps", label: "Roadmaps" },
+      { to: "/skills", label: "Skills" },
+      { to: "/exams", label: "Exams & Preparation" },
+      { to: "/resources", label: "Resources" },
+      { to: "/interests", label: "Interests & Hobbies" },
+      { to: "/health", label: "Healthcare Education" },
+      { to: "/hub", label: "Learning Hub", search: { tab: "learning" } },
+    ],
+  },
+  {
+    label: "Build",
+    items: [
+      { to: "/projects", label: "Project Builder" },
+      { to: "/platform", label: "Platform" },
+    ],
+  },
+  {
+    label: "Career Hub",
+    items: [
+      { to: "/career-hub", label: "All Opportunities", search: { kind: "all" } },
+      { to: "/career-hub", label: "Internships", search: { kind: "internship" } },
+      { to: "/career-hub", label: "Hackathons", search: { kind: "hackathon" } },
+      { to: "/career-hub", label: "Competitions", search: { kind: "competition" } },
+      { to: "/government-jobs", label: "Government Jobs" },
+      { to: "/industry-news", label: "Career Updates" },
+    ],
+  },
+  {
+    label: "Community",
+    items: [
+      { to: "/community", label: "Community" },
+      { to: "/about", label: "About" },
+      { to: "/contact", label: "Contact" },
+    ],
+  },
+  { label: "My Plan", to: "/my-plan" },
+];
+
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
