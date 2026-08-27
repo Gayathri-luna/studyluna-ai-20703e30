@@ -104,6 +104,19 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close open menus on outside click / Escape.
+  useEffect(() => {
+    if (!groupOpen) return;
+    const close = () => setGroupOpen(null);
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setGroupOpen(null); };
+    window.addEventListener("click", close);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("click", close);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [groupOpen]);
+
   // Close the account menu on outside click / Escape.
   useEffect(() => {
     if (!accountOpen) return;
@@ -197,7 +210,7 @@ export function Navbar() {
         </div>
 
 
-        <div className="ml-auto flex items-center gap-1.5 xl:ml-2">
+        <div className="ml-auto flex items-center gap-1.5 lg:ml-2">
           <button
             type="button"
             aria-label="Search LUNA"
@@ -263,7 +276,7 @@ export function Navbar() {
             aria-label="Toggle navigation"
             aria-expanded={open}
             onClick={() => setOpen((value) => !value)}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground xl:hidden"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground lg:hidden"
           >
             {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
@@ -278,7 +291,7 @@ export function Navbar() {
           animate={{ height: "auto", opacity: 1 }}
           exit={reduced ? { opacity: 0 } : { height: 0, opacity: 0 }}
           transition={{ duration: reduced ? 0 : 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="overflow-hidden border-t border-border/60 xl:hidden"
+          className="overflow-hidden border-t border-border/60 lg:hidden"
         >
           <div className="container mx-auto grid grid-cols-2 gap-1 px-4 py-3">
             {[...NAV_LINKS, { to: "/luna-ai", label: "LunaAI 7.0" } as const, { to: user ? "/dashboard" : "/auth", label: user ? "Dashboard" : "Login" } as const].map(
