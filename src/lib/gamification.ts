@@ -369,7 +369,7 @@ export function completeChallenge(challenge: Challenge) {
     events: [
       {
         id: crypto.randomUUID(),
-        kind: "challenge",
+        kind: "challenge" as const,
         label: challenge.title,
         reason: `Challenge completed — ${challenge.goal}`,
         xp: challenge.xp,
