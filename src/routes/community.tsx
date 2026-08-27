@@ -1,15 +1,15 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { toast } from "sonner";
 import { useAuth } from "@/lib/auth";
-import { MessagesSquare, CalendarDays, Trophy, Megaphone, Users } from "lucide-react";
+import { MessagesSquare, CalendarDays, BookOpen, NotebookPen, Users } from "lucide-react";
 
 const DESCRIPTION =
-  "The LUNA community — discussions, events, hackathons and announcements for engineering students building their careers together.";
+  "The LUNA learning community — doubt threads, study rooms, peer notes and guided study sprints for engineering students.";
 
 export const Route = createFileRoute("/community")({
   head: () => ({
     meta: [
-      { title: "Community — Discussions, Events & Hackathons | LUNA" },
+      { title: "Community — Study Rooms, Doubts & Peer Learning | LUNA" },
       { name: "description", content: DESCRIPTION },
       { property: "og:title", content: "LUNA Community" },
       { property: "og:description", content: DESCRIPTION },
@@ -23,35 +23,36 @@ export const Route = createFileRoute("/community")({
 const SECTIONS = [
   {
     icon: MessagesSquare,
-    title: "Discussion",
-    body: "Ask doubts, share resources and get answers from other engineering students.",
+    title: "Doubt Threads",
+    body: "Ask subject doubts and get answers from other engineering students and mentors.",
+    status: "Opening soon",
+  },
+  {
+    icon: Users,
+    title: "Study Rooms",
+    body: "Branch-wise rooms where you study together, share progress and stay accountable.",
     status: "Opening soon",
   },
   {
     icon: CalendarDays,
-    title: "Events",
-    body: "Webinars, AMAs with working engineers, and guided study sprints.",
-    status: "Opening soon",
-  },
-  {
-    icon: Trophy,
-    title: "Hackathons",
-    body: "Team up on hardware and software builds with judged showcases.",
+    title: "Study Sprints",
+    body: "Time-boxed group sprints for exams, semester prep and skill roadmaps.",
     status: "Planned",
   },
   {
-    icon: Megaphone,
-    title: "Announcements",
-    body: "Exam dates, internship drives and new LUNA features in one feed.",
+    icon: NotebookPen,
+    title: "Peer Notes",
+    body: "Shared notes, cheat sheets and summaries curated by students who cleared it.",
     status: "Planned",
   },
   {
-    icon: Users,
-    title: "Future Forum",
-    body: "A full threaded forum with reputation, tags and branch-wise rooms.",
+    icon: BookOpen,
+    title: "Learning Circles",
+    body: "Small mentor-led circles that follow a roadmap end to end together.",
     status: "On the roadmap",
   },
 ];
+
 
 function CommunityPage() {
   const { user, loading } = useAuth();

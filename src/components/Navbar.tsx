@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Menu, X, Search, LogIn, LayoutDashboard, LogOut } from "lucide-react";
+import { Menu, X, Search, LogIn, LayoutDashboard, LogOut, ChevronDown } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -11,27 +11,76 @@ import lunaLogo from "@/assets/luna-logo.png";
 
 const NAV_LINKS = [
   { to: "/", label: "Home" },
-  { to: "/platform", label: "Platform" },
-  { to: "/hub", label: "Hub", search: { tab: "learning" } },
+  { to: "/luna-ai", label: "LunaAI" },
   { to: "/roadmaps", label: "Roadmaps" },
-  { to: "/my-plan", label: "My Plan" },
   { to: "/skills", label: "Skills" },
-  { to: "/interests", label: "Interests" },
-  { to: "/projects", label: "Projects" },
-  { to: "/health", label: "Healthcare" },
-  { to: "/government-jobs", label: "Government Jobs" },
   { to: "/exams", label: "Exams" },
-  { to: "/industry-news", label: "Career Updates" },
   { to: "/resources", label: "Resources" },
+  { to: "/interests", label: "Interests" },
+  { to: "/health", label: "Healthcare" },
+  { to: "/hub", label: "Hub", search: { tab: "learning" } },
+  { to: "/projects", label: "Projects" },
+  { to: "/platform", label: "Platform" },
+  { to: "/career-hub", label: "Career Hub", search: { kind: "all" } },
+  { to: "/government-jobs", label: "Government Jobs" },
+  { to: "/industry-news", label: "Career Updates" },
   { to: "/community", label: "Community" },
+  { to: "/my-plan", label: "My Plan" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ] as const;
+
+type NavItem = { to: string; label: string; search?: Record<string, unknown> };
+
+const NAV_GROUPS: { label: string; to?: string; search?: Record<string, unknown>; items?: NavItem[] }[] = [
+  { label: "LunaAI", to: "/luna-ai" },
+  {
+    label: "Learn",
+    items: [
+      { to: "/roadmaps", label: "Roadmaps" },
+      { to: "/skills", label: "Skills" },
+      { to: "/exams", label: "Exams & Preparation" },
+      { to: "/resources", label: "Resources" },
+      { to: "/interests", label: "Interests & Hobbies" },
+      { to: "/health", label: "Healthcare Education" },
+      { to: "/hub", label: "Learning Hub", search: { tab: "learning" } },
+    ],
+  },
+  {
+    label: "Build",
+    items: [
+      { to: "/projects", label: "Project Builder" },
+      { to: "/platform", label: "Platform" },
+    ],
+  },
+  {
+    label: "Career Hub",
+    items: [
+      { to: "/career-hub", label: "All Opportunities", search: { kind: "all" } },
+      { to: "/career-hub", label: "Internships", search: { kind: "internship" } },
+      { to: "/career-hub", label: "Hackathons", search: { kind: "hackathon" } },
+      { to: "/career-hub", label: "Competitions", search: { kind: "competition" } },
+      { to: "/government-jobs", label: "Government Jobs" },
+      { to: "/industry-news", label: "Career Updates" },
+    ],
+  },
+  {
+    label: "Community",
+    items: [
+      { to: "/community", label: "Community" },
+      { to: "/about", label: "About" },
+      { to: "/contact", label: "Contact" },
+    ],
+  },
+  { label: "My Plan", to: "/my-plan" },
+];
+
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
+  const [groupOpen, setGroupOpen] = useState<string | null>(null);
   const { user } = useAuth();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
@@ -54,6 +103,19 @@ export function Navbar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  // Close open menus on outside click / Escape.
+  useEffect(() => {
+    if (!groupOpen) return;
+    const close = () => setGroupOpen(null);
+    const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") setGroupOpen(null); };
+    window.addEventListener("click", close);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("click", close);
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [groupOpen]);
 
   // Close the account menu on outside click / Escape.
   useEffect(() => {
@@ -90,25 +152,65 @@ export function Navbar() {
           </span>
         </Link>
 
-        <div className="ml-auto hidden items-center gap-0.5 xl:flex">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              search={("search" in link ? link.search : {}) as never}
-              activeOptions={{ exact: link.to === "/" }}
-              activeProps={{
-                className:
-                  "text-foreground bg-accent/60 after:scale-x-100 shadow-[inset_0_0_0_1px_color-mix(in_oklab,var(--color-primary)_35%,transparent)]",
-              }}
-              className="relative rounded-full px-2.5 py-2 text-[13px] font-medium text-muted-foreground transition-all duration-200 after:absolute after:inset-x-2.5 after:-bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 hover:-translate-y-0.5 hover:bg-accent/60 hover:text-foreground hover:after:scale-x-100"
-            >
-              {link.label}
-            </Link>
-          ))}
+        <div className="ml-auto hidden items-center gap-0.5 lg:flex">
+          {NAV_GROUPS.map((group) =>
+            group.items ? (
+              <div
+                key={group.label}
+                className="relative"
+                onMouseEnter={() => setGroupOpen(group.label)}
+                onMouseLeave={() => setGroupOpen(null)}
+              >
+                <button
+                  type="button"
+                  aria-haspopup="menu"
+                  aria-expanded={groupOpen === group.label}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setGroupOpen((v) => (v === group.label ? null : group.label));
+                  }}
+                  className="inline-flex items-center gap-1 rounded-full px-3 py-2 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground"
+                >
+                  {group.label}
+                  <ChevronDown className="h-3.5 w-3.5" />
+                </button>
+                {groupOpen === group.label && (
+                  <div
+                    role="menu"
+                    className="absolute left-0 top-full z-50 w-60 overflow-hidden rounded-xl border border-border bg-popover p-1 shadow-lg"
+                  >
+                    {group.items.map((item) => (
+                      <Link
+                        key={`${item.to}-${item.label}`}
+                        to={item.to}
+                        search={(item.search ?? {}) as never}
+                        role="menuitem"
+                        onClick={() => setGroupOpen(null)}
+                        activeProps={{ className: "bg-accent/60 text-foreground" }}
+                        className="block rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                key={group.label}
+                to={group.to!}
+                search={(group.search ?? {}) as never}
+                activeProps={{ className: "text-foreground bg-accent/60" }}
+                className="rounded-full px-3 py-2 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground"
+              >
+                {group.label}
+              </Link>
+            ),
+          )}
         </div>
 
-        <div className="ml-auto flex items-center gap-1.5 xl:ml-2">
+
+        <div className="ml-auto flex items-center gap-1.5 lg:ml-2">
           <button
             type="button"
             aria-label="Search LUNA"
@@ -174,7 +276,7 @@ export function Navbar() {
             aria-label="Toggle navigation"
             aria-expanded={open}
             onClick={() => setOpen((value) => !value)}
-            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground xl:hidden"
+            className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground lg:hidden"
           >
             {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
@@ -189,7 +291,7 @@ export function Navbar() {
           animate={{ height: "auto", opacity: 1 }}
           exit={reduced ? { opacity: 0 } : { height: 0, opacity: 0 }}
           transition={{ duration: reduced ? 0 : 0.25, ease: [0.22, 1, 0.36, 1] }}
-          className="overflow-hidden border-t border-border/60 xl:hidden"
+          className="overflow-hidden border-t border-border/60 lg:hidden"
         >
           <div className="container mx-auto grid grid-cols-2 gap-1 px-4 py-3">
             {[...NAV_LINKS, { to: "/luna-ai", label: "LunaAI 7.0" } as const, { to: user ? "/dashboard" : "/auth", label: user ? "Dashboard" : "Login" } as const].map(
