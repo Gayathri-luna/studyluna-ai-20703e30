@@ -138,23 +138,63 @@ export function Navbar() {
           </span>
         </Link>
 
-        <div className="ml-auto hidden items-center gap-0.5 xl:flex">
-          {NAV_LINKS.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              search={("search" in link ? link.search : {}) as never}
-              activeOptions={{ exact: link.to === "/" }}
-              activeProps={{
-                className:
-                  "text-foreground bg-accent/60 after:scale-x-100 shadow-[inset_0_0_0_1px_color-mix(in_oklab,var(--color-primary)_35%,transparent)]",
-              }}
-              className="relative rounded-full px-2.5 py-2 text-[13px] font-medium text-muted-foreground transition-all duration-200 after:absolute after:inset-x-2.5 after:-bottom-0.5 after:h-px after:origin-left after:scale-x-0 after:bg-primary after:transition-transform after:duration-300 hover:-translate-y-0.5 hover:bg-accent/60 hover:text-foreground hover:after:scale-x-100"
-            >
-              {link.label}
-            </Link>
-          ))}
+        <div className="ml-auto hidden items-center gap-0.5 lg:flex">
+          {NAV_GROUPS.map((group) =>
+            group.items ? (
+              <div
+                key={group.label}
+                className="relative"
+                onMouseEnter={() => setGroupOpen(group.label)}
+                onMouseLeave={() => setGroupOpen(null)}
+              >
+                <button
+                  type="button"
+                  aria-haspopup="menu"
+                  aria-expanded={groupOpen === group.label}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setGroupOpen((v) => (v === group.label ? null : group.label));
+                  }}
+                  className="inline-flex items-center gap-1 rounded-full px-3 py-2 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground"
+                >
+                  {group.label}
+                  <ChevronDown className="h-3.5 w-3.5" />
+                </button>
+                {groupOpen === group.label && (
+                  <div
+                    role="menu"
+                    className="absolute left-0 top-full z-50 w-60 overflow-hidden rounded-xl border border-border bg-popover p-1 shadow-lg"
+                  >
+                    {group.items.map((item) => (
+                      <Link
+                        key={`${item.to}-${item.label}`}
+                        to={item.to}
+                        search={(item.search ?? {}) as never}
+                        role="menuitem"
+                        onClick={() => setGroupOpen(null)}
+                        activeProps={{ className: "bg-accent/60 text-foreground" }}
+                        className="block rounded-lg px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground"
+                      >
+                        {item.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ) : (
+              <Link
+                key={group.label}
+                to={group.to!}
+                search={(group.search ?? {}) as never}
+                activeProps={{ className: "text-foreground bg-accent/60" }}
+                className="rounded-full px-3 py-2 text-[13px] font-medium text-muted-foreground transition-colors hover:bg-accent/60 hover:text-foreground"
+              >
+                {group.label}
+              </Link>
+            ),
+          )}
         </div>
+
 
         <div className="ml-auto flex items-center gap-1.5 xl:ml-2">
           <button
