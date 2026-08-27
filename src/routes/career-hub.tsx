@@ -121,7 +121,7 @@ function CareerHubPage() {
   }, [debounced, kind, matched, branch, goal, year]);
 
   const setKind = (next: KindFilter) =>
-    void navigate({ search: next === "all" ? {} : { kind: next }, resetScroll: false });
+    void navigate({ to: "/career-hub", search: { kind: next }, resetScroll: false });
 
   return (
     <div className="container mx-auto px-4 py-14">
