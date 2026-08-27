@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "@tanstack/react-router";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { Menu, X, Search, LogIn, LayoutDashboard, LogOut } from "lucide-react";
+import { Menu, X, Search, LogIn, LayoutDashboard, LogOut, ChevronDown } from "lucide-react";
 import { useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { ThemeToggle } from "@/components/ThemeToggle";
@@ -80,6 +80,7 @@ export function Navbar() {
   const [open, setOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [accountOpen, setAccountOpen] = useState(false);
+  const [groupOpen, setGroupOpen] = useState<string | null>(null);
   const { user } = useAuth();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
