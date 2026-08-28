@@ -47,6 +47,7 @@ import { Route as RoadmapsBranchRouteImport } from './routes/roadmaps.$branch'
 import { Route as SkillsIndexRouteImport } from './routes/skills.index'
 import { Route as SkillsSlugRouteImport } from './routes/skills.$slug'
 import { Route as SubjectsIndexRouteImport } from './routes/subjects.index'
+import { Route as SubjectsSlugRouteImport } from './routes/subjects.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -238,6 +239,11 @@ const SubjectsIndexRoute = SubjectsIndexRouteImport.update({
   path: '/subjects/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SubjectsSlugRoute = SubjectsSlugRouteImport.update({
+  id: '/subjects/$slug',
+  path: '/subjects/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -270,6 +276,7 @@ export interface FileRoutesByFullPath {
   '/resources/$slug': typeof ResourcesSlugRoute
   '/roadmaps/$branch': typeof RoadmapsBranchRoute
   '/skills/$slug': typeof SkillsSlugRoute
+  '/subjects/$slug': typeof SubjectsSlugRoute
   '/government-jobs/': typeof GovernmentJobsIndexRoute
   '/health/': typeof HealthIndexRoute
   '/interests/': typeof InterestsIndexRoute
@@ -309,6 +316,7 @@ export interface FileRoutesByTo {
   '/resources/$slug': typeof ResourcesSlugRoute
   '/roadmaps/$branch': typeof RoadmapsBranchRoute
   '/skills/$slug': typeof SkillsSlugRoute
+  '/subjects/$slug': typeof SubjectsSlugRoute
   '/government-jobs': typeof GovernmentJobsIndexRoute
   '/health': typeof HealthIndexRoute
   '/interests': typeof InterestsIndexRoute
@@ -350,6 +358,7 @@ export interface FileRoutesById {
   '/resources/$slug': typeof ResourcesSlugRoute
   '/roadmaps/$branch': typeof RoadmapsBranchRoute
   '/skills/$slug': typeof SkillsSlugRoute
+  '/subjects/$slug': typeof SubjectsSlugRoute
   '/government-jobs/': typeof GovernmentJobsIndexRoute
   '/health/': typeof HealthIndexRoute
   '/interests/': typeof InterestsIndexRoute
@@ -392,6 +401,7 @@ export interface FileRouteTypes {
     | '/resources/$slug'
     | '/roadmaps/$branch'
     | '/skills/$slug'
+    | '/subjects/$slug'
     | '/government-jobs/'
     | '/health/'
     | '/interests/'
@@ -431,6 +441,7 @@ export interface FileRouteTypes {
     | '/resources/$slug'
     | '/roadmaps/$branch'
     | '/skills/$slug'
+    | '/subjects/$slug'
     | '/government-jobs'
     | '/health'
     | '/interests'
@@ -471,6 +482,7 @@ export interface FileRouteTypes {
     | '/resources/$slug'
     | '/roadmaps/$branch'
     | '/skills/$slug'
+    | '/subjects/$slug'
     | '/government-jobs/'
     | '/health/'
     | '/interests/'
@@ -511,6 +523,7 @@ export interface RootRouteChildren {
   ResourcesSlugRoute: typeof ResourcesSlugRoute
   RoadmapsBranchRoute: typeof RoadmapsBranchRoute
   SkillsSlugRoute: typeof SkillsSlugRoute
+  SubjectsSlugRoute: typeof SubjectsSlugRoute
   GovernmentJobsIndexRoute: typeof GovernmentJobsIndexRoute
   HealthIndexRoute: typeof HealthIndexRoute
   InterestsIndexRoute: typeof InterestsIndexRoute
@@ -788,6 +801,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SubjectsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/subjects/$slug': {
+      id: '/subjects/$slug'
+      path: '/subjects/$slug'
+      fullPath: '/subjects/$slug'
+      preLoaderRoute: typeof SubjectsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -834,6 +854,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResourcesSlugRoute: ResourcesSlugRoute,
   RoadmapsBranchRoute: RoadmapsBranchRoute,
   SkillsSlugRoute: SkillsSlugRoute,
+  SubjectsSlugRoute: SubjectsSlugRoute,
   GovernmentJobsIndexRoute: GovernmentJobsIndexRoute,
   HealthIndexRoute: HealthIndexRoute,
   InterestsIndexRoute: InterestsIndexRoute,
