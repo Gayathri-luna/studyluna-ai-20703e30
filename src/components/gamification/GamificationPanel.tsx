@@ -173,7 +173,7 @@ export function GamificationPanel({ compact = false }: { compact?: boolean }) {
 
       {compact ? (
         <Button asChild>
-          <Link to="/gamification">Open my progress hub</Link>
+          <Link to="/progress">Open my progress hub</Link>
         </Button>
       ) : (
         <>
