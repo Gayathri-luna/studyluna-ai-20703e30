@@ -32,7 +32,14 @@ function ResourcesPage() {
         <p className="mt-3 text-muted-foreground">
           Pick a category and get a short, hand-picked list — no endless link dumps.
         </p>
+        <Link
+          to="/subjects"
+          className="mt-5 inline-flex items-center gap-2 rounded-full border border-primary/50 bg-primary/10 px-4 py-2 text-sm font-medium text-primary transition-colors hover:bg-primary/20"
+        >
+          Looking for subject-wise notes & PDFs? <ArrowRight className="h-4 w-4" />
+        </Link>
       </header>
+
 
       <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {resourceCategories.map((category, index) => (

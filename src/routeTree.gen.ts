@@ -46,6 +46,8 @@ import { Route as RoadmapsIndexRouteImport } from './routes/roadmaps.index'
 import { Route as RoadmapsBranchRouteImport } from './routes/roadmaps.$branch'
 import { Route as SkillsIndexRouteImport } from './routes/skills.index'
 import { Route as SkillsSlugRouteImport } from './routes/skills.$slug'
+import { Route as SubjectsIndexRouteImport } from './routes/subjects.index'
+import { Route as SubjectsSlugRouteImport } from './routes/subjects.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -232,6 +234,16 @@ const SkillsSlugRoute = SkillsSlugRouteImport.update({
   path: '/skills/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SubjectsIndexRoute = SubjectsIndexRouteImport.update({
+  id: '/subjects/',
+  path: '/subjects/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SubjectsSlugRoute = SubjectsSlugRouteImport.update({
+  id: '/subjects/$slug',
+  path: '/subjects/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -264,6 +276,7 @@ export interface FileRoutesByFullPath {
   '/resources/$slug': typeof ResourcesSlugRoute
   '/roadmaps/$branch': typeof RoadmapsBranchRoute
   '/skills/$slug': typeof SkillsSlugRoute
+  '/subjects/$slug': typeof SubjectsSlugRoute
   '/government-jobs/': typeof GovernmentJobsIndexRoute
   '/health/': typeof HealthIndexRoute
   '/interests/': typeof InterestsIndexRoute
@@ -271,6 +284,7 @@ export interface FileRoutesByFullPath {
   '/resources/': typeof ResourcesIndexRoute
   '/roadmaps/': typeof RoadmapsIndexRoute
   '/skills/': typeof SkillsIndexRoute
+  '/subjects/': typeof SubjectsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -302,6 +316,7 @@ export interface FileRoutesByTo {
   '/resources/$slug': typeof ResourcesSlugRoute
   '/roadmaps/$branch': typeof RoadmapsBranchRoute
   '/skills/$slug': typeof SkillsSlugRoute
+  '/subjects/$slug': typeof SubjectsSlugRoute
   '/government-jobs': typeof GovernmentJobsIndexRoute
   '/health': typeof HealthIndexRoute
   '/interests': typeof InterestsIndexRoute
@@ -309,6 +324,7 @@ export interface FileRoutesByTo {
   '/resources': typeof ResourcesIndexRoute
   '/roadmaps': typeof RoadmapsIndexRoute
   '/skills': typeof SkillsIndexRoute
+  '/subjects': typeof SubjectsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -342,6 +358,7 @@ export interface FileRoutesById {
   '/resources/$slug': typeof ResourcesSlugRoute
   '/roadmaps/$branch': typeof RoadmapsBranchRoute
   '/skills/$slug': typeof SkillsSlugRoute
+  '/subjects/$slug': typeof SubjectsSlugRoute
   '/government-jobs/': typeof GovernmentJobsIndexRoute
   '/health/': typeof HealthIndexRoute
   '/interests/': typeof InterestsIndexRoute
@@ -349,6 +366,7 @@ export interface FileRoutesById {
   '/resources/': typeof ResourcesIndexRoute
   '/roadmaps/': typeof RoadmapsIndexRoute
   '/skills/': typeof SkillsIndexRoute
+  '/subjects/': typeof SubjectsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -383,6 +401,7 @@ export interface FileRouteTypes {
     | '/resources/$slug'
     | '/roadmaps/$branch'
     | '/skills/$slug'
+    | '/subjects/$slug'
     | '/government-jobs/'
     | '/health/'
     | '/interests/'
@@ -390,6 +409,7 @@ export interface FileRouteTypes {
     | '/resources/'
     | '/roadmaps/'
     | '/skills/'
+    | '/subjects/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -421,6 +441,7 @@ export interface FileRouteTypes {
     | '/resources/$slug'
     | '/roadmaps/$branch'
     | '/skills/$slug'
+    | '/subjects/$slug'
     | '/government-jobs'
     | '/health'
     | '/interests'
@@ -428,6 +449,7 @@ export interface FileRouteTypes {
     | '/resources'
     | '/roadmaps'
     | '/skills'
+    | '/subjects'
   id:
     | '__root__'
     | '/'
@@ -460,6 +482,7 @@ export interface FileRouteTypes {
     | '/resources/$slug'
     | '/roadmaps/$branch'
     | '/skills/$slug'
+    | '/subjects/$slug'
     | '/government-jobs/'
     | '/health/'
     | '/interests/'
@@ -467,6 +490,7 @@ export interface FileRouteTypes {
     | '/resources/'
     | '/roadmaps/'
     | '/skills/'
+    | '/subjects/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -499,12 +523,14 @@ export interface RootRouteChildren {
   ResourcesSlugRoute: typeof ResourcesSlugRoute
   RoadmapsBranchRoute: typeof RoadmapsBranchRoute
   SkillsSlugRoute: typeof SkillsSlugRoute
+  SubjectsSlugRoute: typeof SubjectsSlugRoute
   GovernmentJobsIndexRoute: typeof GovernmentJobsIndexRoute
   HealthIndexRoute: typeof HealthIndexRoute
   InterestsIndexRoute: typeof InterestsIndexRoute
   ResourcesIndexRoute: typeof ResourcesIndexRoute
   RoadmapsIndexRoute: typeof RoadmapsIndexRoute
   SkillsIndexRoute: typeof SkillsIndexRoute
+  SubjectsIndexRoute: typeof SubjectsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -768,6 +794,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SkillsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/subjects/': {
+      id: '/subjects/'
+      path: '/subjects'
+      fullPath: '/subjects/'
+      preLoaderRoute: typeof SubjectsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/subjects/$slug': {
+      id: '/subjects/$slug'
+      path: '/subjects/$slug'
+      fullPath: '/subjects/$slug'
+      preLoaderRoute: typeof SubjectsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -814,12 +854,14 @@ const rootRouteChildren: RootRouteChildren = {
   ResourcesSlugRoute: ResourcesSlugRoute,
   RoadmapsBranchRoute: RoadmapsBranchRoute,
   SkillsSlugRoute: SkillsSlugRoute,
+  SubjectsSlugRoute: SubjectsSlugRoute,
   GovernmentJobsIndexRoute: GovernmentJobsIndexRoute,
   HealthIndexRoute: HealthIndexRoute,
   InterestsIndexRoute: InterestsIndexRoute,
   ResourcesIndexRoute: ResourcesIndexRoute,
   RoadmapsIndexRoute: RoadmapsIndexRoute,
   SkillsIndexRoute: SkillsIndexRoute,
+  SubjectsIndexRoute: SubjectsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
