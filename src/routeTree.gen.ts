@@ -24,6 +24,7 @@ import { Route as LunaAiRouteImport } from './routes/luna-ai'
 import { Route as MyPlanRouteImport } from './routes/my-plan'
 import { Route as PlatformRouteImport } from './routes/platform'
 import { Route as PrivacyPolicyRouteImport } from './routes/privacy-policy'
+import { Route as ProgressRouteImport } from './routes/progress'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
@@ -119,6 +120,11 @@ const PlatformRoute = PlatformRouteImport.update({
 const PrivacyPolicyRoute = PrivacyPolicyRouteImport.update({
   id: '/privacy-policy',
   path: '/privacy-policy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProgressRoute = ProgressRouteImport.update({
+  id: '/progress',
+  path: '/progress',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProjectsRoute = ProjectsRouteImport.update({
@@ -243,6 +249,7 @@ export interface FileRoutesByFullPath {
   '/my-plan': typeof MyPlanRoute
   '/platform': typeof PlatformRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/progress': typeof ProgressRoute
   '/projects': typeof ProjectsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms-of-service': typeof TermsOfServiceRoute
@@ -280,6 +287,7 @@ export interface FileRoutesByTo {
   '/my-plan': typeof MyPlanRoute
   '/platform': typeof PlatformRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/progress': typeof ProgressRoute
   '/projects': typeof ProjectsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms-of-service': typeof TermsOfServiceRoute
@@ -319,6 +327,7 @@ export interface FileRoutesById {
   '/my-plan': typeof MyPlanRoute
   '/platform': typeof PlatformRoute
   '/privacy-policy': typeof PrivacyPolicyRoute
+  '/progress': typeof ProgressRoute
   '/projects': typeof ProjectsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms-of-service': typeof TermsOfServiceRoute
@@ -359,6 +368,7 @@ export interface FileRouteTypes {
     | '/my-plan'
     | '/platform'
     | '/privacy-policy'
+    | '/progress'
     | '/projects'
     | '/sitemap.xml'
     | '/terms-of-service'
@@ -396,6 +406,7 @@ export interface FileRouteTypes {
     | '/my-plan'
     | '/platform'
     | '/privacy-policy'
+    | '/progress'
     | '/projects'
     | '/sitemap.xml'
     | '/terms-of-service'
@@ -434,6 +445,7 @@ export interface FileRouteTypes {
     | '/my-plan'
     | '/platform'
     | '/privacy-policy'
+    | '/progress'
     | '/projects'
     | '/sitemap.xml'
     | '/terms-of-service'
@@ -473,6 +485,7 @@ export interface RootRouteChildren {
   MyPlanRoute: typeof MyPlanRoute
   PlatformRoute: typeof PlatformRoute
   PrivacyPolicyRoute: typeof PrivacyPolicyRoute
+  ProgressRoute: typeof ProgressRoute
   ProjectsRoute: typeof ProjectsRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
@@ -599,6 +612,13 @@ declare module '@tanstack/react-router' {
       path: '/privacy-policy'
       fullPath: '/privacy-policy'
       preLoaderRoute: typeof PrivacyPolicyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/progress': {
+      id: '/progress'
+      path: '/progress'
+      fullPath: '/progress'
+      preLoaderRoute: typeof ProgressRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/projects': {
@@ -780,6 +800,7 @@ const rootRouteChildren: RootRouteChildren = {
   MyPlanRoute: MyPlanRoute,
   PlatformRoute: PlatformRoute,
   PrivacyPolicyRoute: PrivacyPolicyRoute,
+  ProgressRoute: ProgressRoute,
   ProjectsRoute: ProjectsRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
