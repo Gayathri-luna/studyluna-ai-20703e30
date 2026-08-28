@@ -46,6 +46,7 @@ import { Route as RoadmapsIndexRouteImport } from './routes/roadmaps.index'
 import { Route as RoadmapsBranchRouteImport } from './routes/roadmaps.$branch'
 import { Route as SkillsIndexRouteImport } from './routes/skills.index'
 import { Route as SkillsSlugRouteImport } from './routes/skills.$slug'
+import { Route as SubjectsIndexRouteImport } from './routes/subjects.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -232,6 +233,11 @@ const SkillsSlugRoute = SkillsSlugRouteImport.update({
   path: '/skills/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SubjectsIndexRoute = SubjectsIndexRouteImport.update({
+  id: '/subjects/',
+  path: '/subjects/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -271,6 +277,7 @@ export interface FileRoutesByFullPath {
   '/resources/': typeof ResourcesIndexRoute
   '/roadmaps/': typeof RoadmapsIndexRoute
   '/skills/': typeof SkillsIndexRoute
+  '/subjects/': typeof SubjectsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -309,6 +316,7 @@ export interface FileRoutesByTo {
   '/resources': typeof ResourcesIndexRoute
   '/roadmaps': typeof RoadmapsIndexRoute
   '/skills': typeof SkillsIndexRoute
+  '/subjects': typeof SubjectsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -349,6 +357,7 @@ export interface FileRoutesById {
   '/resources/': typeof ResourcesIndexRoute
   '/roadmaps/': typeof RoadmapsIndexRoute
   '/skills/': typeof SkillsIndexRoute
+  '/subjects/': typeof SubjectsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -390,6 +399,7 @@ export interface FileRouteTypes {
     | '/resources/'
     | '/roadmaps/'
     | '/skills/'
+    | '/subjects/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -428,6 +438,7 @@ export interface FileRouteTypes {
     | '/resources'
     | '/roadmaps'
     | '/skills'
+    | '/subjects'
   id:
     | '__root__'
     | '/'
@@ -467,6 +478,7 @@ export interface FileRouteTypes {
     | '/resources/'
     | '/roadmaps/'
     | '/skills/'
+    | '/subjects/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -505,6 +517,7 @@ export interface RootRouteChildren {
   ResourcesIndexRoute: typeof ResourcesIndexRoute
   RoadmapsIndexRoute: typeof RoadmapsIndexRoute
   SkillsIndexRoute: typeof SkillsIndexRoute
+  SubjectsIndexRoute: typeof SubjectsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -768,6 +781,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SkillsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/subjects/': {
+      id: '/subjects/'
+      path: '/subjects'
+      fullPath: '/subjects/'
+      preLoaderRoute: typeof SubjectsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -820,6 +840,7 @@ const rootRouteChildren: RootRouteChildren = {
   ResourcesIndexRoute: ResourcesIndexRoute,
   RoadmapsIndexRoute: RoadmapsIndexRoute,
   SkillsIndexRoute: SkillsIndexRoute,
+  SubjectsIndexRoute: SubjectsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
