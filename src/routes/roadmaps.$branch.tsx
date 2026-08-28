@@ -66,12 +66,31 @@ function BranchRoadmapPage() {
       />
 
       {detail && (
-        <BranchSection title="Core subjects" description={`Subjects you actually study in ${branch.short}.`}>
-          <BulletGrid items={detail.subjects} columns={2} />
+        <BranchSection
+          title="Core subjects"
+          description={`Subjects you actually study in ${branch.short} — with notes, PDFs and video links.`}
+        >
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {detail.subjects.map((subject) => (
+              <li
+                key={subject}
+                className="rounded-xl border border-border/70 bg-card/50 p-3 backdrop-blur-xl"
+              >
+                <p className="text-sm font-medium text-foreground">{subject}</p>
+                <TopicLinks topic={subject} className="mt-2" />
+              </li>
+            ))}
+          </ul>
+          <Link
+            to="/subjects"
+            className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+          >
+            Browse all subject notes & PDFs →
+          </Link>
         </BranchSection>
       )}
 
-      <BranchSection title="Learning roadmap" description="Phase by phase, foundations to job ready.">
+      <BranchSection title="Learning roadmap" description="Phase by phase, with a resource link on every step.">
         <div className="space-y-4">
           {branch.phases.map((phase, index) => (
             <Card key={phase.title} className="border-border/70 bg-card/50 backdrop-blur-xl">
@@ -82,11 +101,14 @@ function BranchRoadmapPage() {
                 <CardTitle className="text-base sm:text-lg">{phase.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-2 text-sm text-muted-foreground">
+                <ul className="space-y-3 text-sm text-muted-foreground">
                   {phase.items.map((item) => (
                     <li key={item} className="flex gap-2">
                       <span aria-hidden className="text-primary">•</span>
-                      {item}
+                      <span>
+                        {item}
+                        <TopicLinks topic={item} className="ml-2" />
+                      </span>
                     </li>
                   ))}
                 </ul>
@@ -95,6 +117,7 @@ function BranchRoadmapPage() {
           ))}
         </div>
       </BranchSection>
+
 
       <section className="mt-10 grid gap-8 sm:grid-cols-2">
         <div>
