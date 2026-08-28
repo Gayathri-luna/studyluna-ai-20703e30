@@ -59,6 +59,13 @@ export function GlobalSearch({ open, onOpenChange }: Props) {
             </CommandItem>
           ))}
         </CommandGroup>
+        <CommandGroup heading="Subjects">
+          {subjects.map((s) => (
+            <CommandItem key={s.slug} value={`${s.name} ${s.topics.join(" ")} notes pdf`} onSelect={() => go(`/subjects/${s.slug}`)}>
+              {s.name}
+            </CommandItem>
+          ))}
+        </CommandGroup>
         <CommandGroup heading="Resources">
           {resourceCategories.map((c) => (
             <CommandItem key={c.slug} value={`${c.title} resources`} onSelect={() => go(`/resources/${c.slug}`)}>
@@ -66,6 +73,7 @@ export function GlobalSearch({ open, onOpenChange }: Props) {
             </CommandItem>
           ))}
         </CommandGroup>
+
         <CommandGroup heading="Luna AI">
           <CommandItem value="luna ai chat conversations" onSelect={() => go("/luna-ai")}>
             Open Luna AI chat
