@@ -8,6 +8,7 @@ import {
   BookOpen,
   Users,
   Sparkles,
+  Trophy,
   ArrowRight,
   GraduationCap,
   HeartPulse,
@@ -84,6 +85,12 @@ const FEATURES = [
     icon: Sparkles,
     title: "Interests & Hobbies",
     text: "Explore hobbies with basics, free resources and progress tracking.",
+  },
+  {
+    to: "/progress",
+    icon: Trophy,
+    title: "Progress & Badges",
+    text: "XP, levels, streaks and challenges — earned only through real study work.",
   },
   {
     to: "/health",

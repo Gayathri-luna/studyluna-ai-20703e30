@@ -25,6 +25,7 @@ const NAV_LINKS = [
   { to: "/government-jobs", label: "Government Jobs" },
   { to: "/industry-news", label: "Career Updates" },
   { to: "/community", label: "Community" },
+  { to: "/progress", label: "Progress" },
   { to: "/my-plan", label: "My Plan" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
@@ -44,6 +45,7 @@ const NAV_GROUPS: { label: string; to?: string; search?: Record<string, unknown>
       { to: "/interests", label: "Interests & Hobbies" },
       { to: "/health", label: "Healthcare Education" },
       { to: "/hub", label: "Learning Hub", search: { tab: "learning" } },
+      { to: "/progress", label: "Progress & Badges" },
     ],
   },
   {
