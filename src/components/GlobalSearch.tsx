@@ -11,7 +11,9 @@ import { branches } from "@/data/branches";
 import { skills } from "@/data/skills";
 import { govJobs } from "@/data/govJobs";
 import { resourceCategories } from "@/data/resources";
+import { subjects } from "@/data/subjects";
 import { miniProjects } from "@/data/ece";
+
 
 interface Props {
   open: boolean;
