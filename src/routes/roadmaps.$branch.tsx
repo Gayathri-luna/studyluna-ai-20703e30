@@ -6,6 +6,7 @@ import { BranchSection, BulletGrid, ChipList } from "@/components/BranchSection"
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ArrowLeft, Sparkles, Newspaper } from "lucide-react";
+import { TopicLinks } from "@/components/TopicLinks";
 
 export const Route = createFileRoute("/roadmaps/$branch")({
   loader: ({ params }): { branch: Branch } => {
