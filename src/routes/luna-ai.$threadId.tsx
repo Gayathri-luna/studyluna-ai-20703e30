@@ -103,6 +103,53 @@ function MessageMarkdown({ text }: { text: string }) {
           a: ({ href, children }) => {
             const url = String(href ?? "");
             const internal = url.startsWith("/");
+
+            let youtubeVideoId: string | null = null;
+            try {
+              const parsed = new URL(url);
+              if (parsed.hostname === "www.youtube.com" && parsed.pathname === "/watch") {
+                youtubeVideoId = parsed.searchParams.get("v");
+              }
+            } catch {
+              // ReactMarkdown can also render relative links; those are handled below.
+            }
+
+            if (youtubeVideoId) {
+              return (
+                <span className="my-3 flex w-full max-w-xl flex-col gap-3 rounded-lg border border-border bg-background p-3 sm:flex-row">
+                  <a
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block shrink-0"
+                  >
+                    <img
+                      src={`https://i.ytimg.com/vi/${youtubeVideoId}/mqdefault.jpg`}
+                      alt={`${String(children)} YouTube thumbnail`}
+                      loading="lazy"
+                      className="aspect-video w-full rounded-md object-cover sm:w-40"
+                    />
+                  </a>
+                  <span className="flex min-w-0 flex-1 flex-col items-start justify-between gap-3">
+                    <a
+                      href={url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-semibold text-foreground no-underline hover:text-primary hover:underline"
+                    >
+                      {children}
+                    </a>
+                    <Button asChild size="sm" variant="outline" className="not-prose">
+                      <a href={url} target="_blank" rel="noopener noreferrer">
+                        <Youtube className="h-4 w-4" />
+                        Watch on YouTube
+                      </a>
+                    </Button>
+                  </span>
+                </span>
+              );
+            }
+
             return (
               <a
                 href={url}
