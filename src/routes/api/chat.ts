@@ -128,6 +128,28 @@ export const Route = createFileRoute("/api/chat")({
           model: gateway((typeof model === "string" && MODEL_MAP[model]) || MODEL_MAP["v3"]!),
           system: `${BASE_PROMPT}\n\n${modePrompt}`,
           messages: modelMessages,
+          tools: {
+            search_youtube: tool({
+              description:
+                "Search YouTube for real videos. Use this for any request for a video, tutorial, lecture, course, song or YouTube link. Returns verified video titles, channels and URLs.",
+              inputSchema: z.object({
+                query: z.string().describe("The YouTube search query."),
+                language: z
+                  .string()
+                  .nullable()
+                  .describe("Optional ISO language code such as en, hi, te."),
+              }),
+              execute: async ({ query, language }) => {
+                const result = await searchYouTube(query, {
+                  maxResults: 5,
+                  ...(language ? { language } : {}),
+                });
+                if (!result.ok) return { error: result.error, videos: [] };
+                return { videos: result.videos };
+              },
+            }),
+          },
+          stopWhen: stepCountIs(50),
           // Only aborts when the user presses Stop or closes the tab.
           abortSignal: request.signal,
           onError: ({ error }) => {
