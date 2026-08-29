@@ -31,6 +31,7 @@ import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as ApiGenerateAudioRouteImport } from './routes/api/generate-audio'
 import { Route as ApiGenerateImageRouteImport } from './routes/api/generate-image'
+import { Route as ApiSearchYoutubeRouteImport } from './routes/api/search-youtube'
 import { Route as ApiYoutubeTranscriptRouteImport } from './routes/api/youtube-transcript'
 import { Route as GovernmentJobsIndexRouteImport } from './routes/government-jobs.index'
 import { Route as GovernmentJobsSlugRouteImport } from './routes/government-jobs.$slug'
@@ -159,6 +160,11 @@ const ApiGenerateImageRoute = ApiGenerateImageRouteImport.update({
   path: '/api/generate-image',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiSearchYoutubeRoute = ApiSearchYoutubeRouteImport.update({
+  id: '/api/search-youtube',
+  path: '/api/search-youtube',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiYoutubeTranscriptRoute = ApiYoutubeTranscriptRouteImport.update({
   id: '/api/youtube-transcript',
   path: '/api/youtube-transcript',
@@ -268,6 +274,7 @@ export interface FileRoutesByFullPath {
   '/api/chat': typeof ApiChatRoute
   '/api/generate-audio': typeof ApiGenerateAudioRoute
   '/api/generate-image': typeof ApiGenerateImageRoute
+  '/api/search-youtube': typeof ApiSearchYoutubeRoute
   '/api/youtube-transcript': typeof ApiYoutubeTranscriptRoute
   '/government-jobs/$slug': typeof GovernmentJobsSlugRoute
   '/health/$slug': typeof HealthSlugRoute
@@ -308,6 +315,7 @@ export interface FileRoutesByTo {
   '/api/chat': typeof ApiChatRoute
   '/api/generate-audio': typeof ApiGenerateAudioRoute
   '/api/generate-image': typeof ApiGenerateImageRoute
+  '/api/search-youtube': typeof ApiSearchYoutubeRoute
   '/api/youtube-transcript': typeof ApiYoutubeTranscriptRoute
   '/government-jobs/$slug': typeof GovernmentJobsSlugRoute
   '/health/$slug': typeof HealthSlugRoute
@@ -350,6 +358,7 @@ export interface FileRoutesById {
   '/api/chat': typeof ApiChatRoute
   '/api/generate-audio': typeof ApiGenerateAudioRoute
   '/api/generate-image': typeof ApiGenerateImageRoute
+  '/api/search-youtube': typeof ApiSearchYoutubeRoute
   '/api/youtube-transcript': typeof ApiYoutubeTranscriptRoute
   '/government-jobs/$slug': typeof GovernmentJobsSlugRoute
   '/health/$slug': typeof HealthSlugRoute
@@ -393,6 +402,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/api/generate-audio'
     | '/api/generate-image'
+    | '/api/search-youtube'
     | '/api/youtube-transcript'
     | '/government-jobs/$slug'
     | '/health/$slug'
@@ -433,6 +443,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/api/generate-audio'
     | '/api/generate-image'
+    | '/api/search-youtube'
     | '/api/youtube-transcript'
     | '/government-jobs/$slug'
     | '/health/$slug'
@@ -474,6 +485,7 @@ export interface FileRouteTypes {
     | '/api/chat'
     | '/api/generate-audio'
     | '/api/generate-image'
+    | '/api/search-youtube'
     | '/api/youtube-transcript'
     | '/government-jobs/$slug'
     | '/health/$slug'
@@ -516,6 +528,7 @@ export interface RootRouteChildren {
   ApiChatRoute: typeof ApiChatRoute
   ApiGenerateAudioRoute: typeof ApiGenerateAudioRoute
   ApiGenerateImageRoute: typeof ApiGenerateImageRoute
+  ApiSearchYoutubeRoute: typeof ApiSearchYoutubeRoute
   ApiYoutubeTranscriptRoute: typeof ApiYoutubeTranscriptRoute
   GovernmentJobsSlugRoute: typeof GovernmentJobsSlugRoute
   HealthSlugRoute: typeof HealthSlugRoute
@@ -689,6 +702,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiGenerateImageRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/search-youtube': {
+      id: '/api/search-youtube'
+      path: '/api/search-youtube'
+      fullPath: '/api/search-youtube'
+      preLoaderRoute: typeof ApiSearchYoutubeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/youtube-transcript': {
       id: '/api/youtube-transcript'
       path: '/api/youtube-transcript'
@@ -847,6 +867,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiChatRoute: ApiChatRoute,
   ApiGenerateAudioRoute: ApiGenerateAudioRoute,
   ApiGenerateImageRoute: ApiGenerateImageRoute,
+  ApiSearchYoutubeRoute: ApiSearchYoutubeRoute,
   ApiYoutubeTranscriptRoute: ApiYoutubeTranscriptRoute,
   GovernmentJobsSlugRoute: GovernmentJobsSlugRoute,
   HealthSlugRoute: HealthSlugRoute,

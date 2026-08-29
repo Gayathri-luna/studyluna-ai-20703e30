@@ -1,8 +1,10 @@
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway.server";
 import { checkGuestRateLimit, consumeAiQuota, verifyRequestUser } from "@/lib/ai-limit.server";
 import { describeAiFailure, sanitizeMessages } from "@/lib/luna-chat.server";
+import { searchYouTube } from "@/lib/youtube-search.server";
 import { createFileRoute } from "@tanstack/react-router";
-import { convertToModelMessages, streamText, type UIMessage } from "ai";
+import { convertToModelMessages, stepCountIs, streamText, tool, type UIMessage } from "ai";
+import { z } from "zod";
 
 
 const BASE_PROMPT = `You are Luna AI, a friendly and intelligent learning assistant for engineering students across every branch (CSE, IT, ECE, EEE, Mechanical, Civil, Chemical, AI/ML, Robotics and more), covering core subjects, programming, maths, physics and chemistry.
@@ -24,6 +26,13 @@ RESPONSE STYLE:
 - Explanation first, then formulas or examples when they help.
 - Match the answer length to the question: simple question → simple answer; "explain in detail" → detailed answer.
 - Avoid excessive headings, tables, emojis and decorative formatting. Use markdown only when it genuinely improves readability.
+
+YOUTUBE VIDEOS (strict):
+- Whenever the student asks for a YouTube video, tutorial, lecture, course, song, review or "give me a link", you MUST call the search_youtube tool and answer only with the videos it returns.
+- Never invent, guess or recall a YouTube video ID or URL from memory. Only URLs returned by the tool are allowed.
+- Show the top 3–5 results as a markdown list: [Video title](url) — Channel name.
+- Match the student's language in the search query when possible.
+- If the tool returns an error or no videos, say so plainly and suggest a different search — never fabricate a link.
 
 LINKS:
 - You CAN and SHOULD share links. Never refuse to give a link. Use markdown links, e.g. [Roadmaps](/roadmaps).
@@ -119,6 +128,28 @@ export const Route = createFileRoute("/api/chat")({
           model: gateway((typeof model === "string" && MODEL_MAP[model]) || MODEL_MAP["v3"]!),
           system: `${BASE_PROMPT}\n\n${modePrompt}`,
           messages: modelMessages,
+          tools: {
+            search_youtube: tool({
+              description:
+                "Search YouTube for real videos. Use this for any request for a video, tutorial, lecture, course, song or YouTube link. Returns verified video titles, channels and URLs.",
+              inputSchema: z.object({
+                query: z.string().describe("The YouTube search query."),
+                language: z
+                  .string()
+                  .nullable()
+                  .describe("Optional ISO language code such as en, hi, te."),
+              }),
+              execute: async ({ query, language }) => {
+                const result = await searchYouTube(query, {
+                  maxResults: 5,
+                  ...(language ? { language } : {}),
+                });
+                if (!result.ok) return { error: result.error, videos: [] };
+                return { videos: result.videos };
+              },
+            }),
+          },
+          stopWhen: stepCountIs(50),
           // Only aborts when the user presses Stop or closes the tab.
           abortSignal: request.signal,
           onError: ({ error }) => {
