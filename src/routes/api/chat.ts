@@ -1,8 +1,10 @@
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway.server";
 import { checkGuestRateLimit, consumeAiQuota, verifyRequestUser } from "@/lib/ai-limit.server";
 import { describeAiFailure, sanitizeMessages } from "@/lib/luna-chat.server";
+import { searchYouTube } from "@/lib/youtube-search.server";
 import { createFileRoute } from "@tanstack/react-router";
-import { convertToModelMessages, streamText, type UIMessage } from "ai";
+import { convertToModelMessages, stepCountIs, streamText, tool, type UIMessage } from "ai";
+import { z } from "zod";
 
 
 const BASE_PROMPT = `You are Luna AI, a friendly and intelligent learning assistant for engineering students across every branch (CSE, IT, ECE, EEE, Mechanical, Civil, Chemical, AI/ML, Robotics and more), covering core subjects, programming, maths, physics and chemistry.
