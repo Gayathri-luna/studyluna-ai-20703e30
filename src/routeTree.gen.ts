@@ -28,6 +28,7 @@ import { Route as ProgressRouteImport } from './routes/progress'
 import { Route as ProjectsRouteImport } from './routes/projects'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as TermsOfServiceRouteImport } from './routes/terms-of-service'
+import { Route as AdminScribdRouteImport } from './routes/admin.scribd'
 import { Route as ApiChatRouteImport } from './routes/api/chat'
 import { Route as ApiGenerateAudioRouteImport } from './routes/api/generate-audio'
 import { Route as ApiGenerateImageRouteImport } from './routes/api/generate-image'
@@ -143,6 +144,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const TermsOfServiceRoute = TermsOfServiceRouteImport.update({
   id: '/terms-of-service',
   path: '/terms-of-service',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminScribdRoute = AdminScribdRouteImport.update({
+  id: '/admin/scribd',
+  path: '/admin/scribd',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiChatRoute = ApiChatRouteImport.update({
@@ -271,6 +277,7 @@ export interface FileRoutesByFullPath {
   '/projects': typeof ProjectsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/admin/scribd': typeof AdminScribdRoute
   '/api/chat': typeof ApiChatRoute
   '/api/generate-audio': typeof ApiGenerateAudioRoute
   '/api/generate-image': typeof ApiGenerateImageRoute
@@ -312,6 +319,7 @@ export interface FileRoutesByTo {
   '/projects': typeof ProjectsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/admin/scribd': typeof AdminScribdRoute
   '/api/chat': typeof ApiChatRoute
   '/api/generate-audio': typeof ApiGenerateAudioRoute
   '/api/generate-image': typeof ApiGenerateImageRoute
@@ -355,6 +363,7 @@ export interface FileRoutesById {
   '/projects': typeof ProjectsRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/terms-of-service': typeof TermsOfServiceRoute
+  '/admin/scribd': typeof AdminScribdRoute
   '/api/chat': typeof ApiChatRoute
   '/api/generate-audio': typeof ApiGenerateAudioRoute
   '/api/generate-image': typeof ApiGenerateImageRoute
@@ -399,6 +408,7 @@ export interface FileRouteTypes {
     | '/projects'
     | '/sitemap.xml'
     | '/terms-of-service'
+    | '/admin/scribd'
     | '/api/chat'
     | '/api/generate-audio'
     | '/api/generate-image'
@@ -440,6 +450,7 @@ export interface FileRouteTypes {
     | '/projects'
     | '/sitemap.xml'
     | '/terms-of-service'
+    | '/admin/scribd'
     | '/api/chat'
     | '/api/generate-audio'
     | '/api/generate-image'
@@ -482,6 +493,7 @@ export interface FileRouteTypes {
     | '/projects'
     | '/sitemap.xml'
     | '/terms-of-service'
+    | '/admin/scribd'
     | '/api/chat'
     | '/api/generate-audio'
     | '/api/generate-image'
@@ -525,6 +537,7 @@ export interface RootRouteChildren {
   ProjectsRoute: typeof ProjectsRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TermsOfServiceRoute: typeof TermsOfServiceRoute
+  AdminScribdRoute: typeof AdminScribdRoute
   ApiChatRoute: typeof ApiChatRoute
   ApiGenerateAudioRoute: typeof ApiGenerateAudioRoute
   ApiGenerateImageRoute: typeof ApiGenerateImageRoute
@@ -679,6 +692,13 @@ declare module '@tanstack/react-router' {
       path: '/terms-of-service'
       fullPath: '/terms-of-service'
       preLoaderRoute: typeof TermsOfServiceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/scribd': {
+      id: '/admin/scribd'
+      path: '/admin/scribd'
+      fullPath: '/admin/scribd'
+      preLoaderRoute: typeof AdminScribdRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/chat': {
@@ -864,6 +884,7 @@ const rootRouteChildren: RootRouteChildren = {
   ProjectsRoute: ProjectsRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   TermsOfServiceRoute: TermsOfServiceRoute,
+  AdminScribdRoute: AdminScribdRoute,
   ApiChatRoute: ApiChatRoute,
   ApiGenerateAudioRoute: ApiGenerateAudioRoute,
   ApiGenerateImageRoute: ApiGenerateImageRoute,
